@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">MamaAndroid Thermal Pos</string>
+
+    <string name="menu_title">Mamandroid</string>
+    <string name="menu1">Venta</string>
+    <string name="menu2">Devoluciones</string>
+    <string name="menu3">Opciones y configuración</string>
+    <string name="menu4">Cierre de caja</string>
+    <string name="menuparte2">Opciones básicas</string>
+
+
+    <!-- *Ayudas en TextEdits* -->
+    <string name="tehDevoluciones">Ref...</string>
+
+
+    <!-- *TextVIews* -->
+    <string name="txtInicio">Bienvenido, elige la opcion que quieras en el menú desplegable</string>
+    <string name="txtTotal">Total: </string>
+    <string name="txtDinero">Cantidad:</string>
+    <string name="txtTotalNumber">0.00</string>
+    <string name="txtDivisa">Moneda: </string>
+
+
+    <!-- *Botones* -->
+    <string name="btnBorrar">Borrar</string>
+    <string name="btnCodigoBarras">Barcode</string>
+    <string name="btnPagar">Cobrar e imprimir</string>
+    <string name="btnNSerie">Buscar</string>
+    <string name="btnMas">+</string>
+    <string name="btnMenos">-</string>
+
+
+    <!-- *Divisas* -->
+    <string name="euro">€</string>
+    <string name="dolar">$</string>
+
+
+    <!-- *Array  Divisas* -->
+    <string-array name="monedas_array">
+        <item name="euro">€</item>
+        <item name="dolar">$</item>
+    </string-array>
+
+
+    <string name="cambio">Cambio</string>
+</resources>
