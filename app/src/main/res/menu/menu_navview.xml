@@ -26,8 +26,8 @@
         <menu>
             <item
                 android:id="@+id/menu_switch_bluetooth"
-                android:icon="@drawable/happyfaces"
-                android:title="Bluetooth"
+                android:icon="@drawable/ic_settings_bluetooth_black_24px"
+                android:title="@string/bluetooth"
                 app:actionLayout="@layout/bluetooth_switch"/>
 
             <item
