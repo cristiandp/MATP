@@ -11,7 +11,7 @@
         android:id="@+id/btnAnadirProd" />
 
     <Button
-        android:text="@string/btnEditarProdaa"
+        android:text="@string/btnEditarProdaaqqq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnEditarProd" />
