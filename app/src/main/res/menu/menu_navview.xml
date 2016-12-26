@@ -34,6 +34,10 @@
                 android:id="@+id/menu_opcion_2"
                 android:icon="@drawable/happyfaces"
                 android:title="Reiniciar Impresora"/>
+            <item
+                android:id="@+id/menu_salir"
+                android:icon="@drawable/ic_power_settings_new_black_24px"
+                android:title="@string/cerrar"/>
         </menu>
     </item>
 
