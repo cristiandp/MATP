@@ -7,10 +7,12 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -94,7 +96,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        Toast.makeText(this,"Pulsa otra vez para volver",Toast.LENGTH_SHORT).show();
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.openDrawer(GravityCompat.START);
+        }else{
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        //PATATA
+
     }
 
     @Override
