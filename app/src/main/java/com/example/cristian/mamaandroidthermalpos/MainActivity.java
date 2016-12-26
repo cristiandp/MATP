@@ -92,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Toast.makeText(this,"Pulsa otra vez para volver",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if(b){
             Toast.makeText(getApplicationContext(),"El switch esta en ON",Toast.LENGTH_SHORT).show();

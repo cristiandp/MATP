@@ -1,6 +1,6 @@
 package com.example.cristian.mamaandroidthermalpos;
 
-import com.example.cristian.mamaandroidthermalpos.recycleviewproductos.Producto;
+import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
 
 /**
  * Created by jessi on 26/12/2016.
