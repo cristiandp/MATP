@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }else{
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        //PATATA
+        //PATATA 10 / 10 xD esto lo acabo de poner lo de patata? xD chi, para probar, bueno y el codigo de arriba, cuando la instales para probar, dale al boton de atras del movil, veras
 
     }
 
