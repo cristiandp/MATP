@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     public void onBackPressed() {
 //        super.onBackPressed();
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.openDrawer(GravityCompat.START);
-        }else{
             drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            drawerLayout.openDrawer(GravityCompat.START);
         }
         //PATATA 10 / 10 xD esto lo acabo de poner lo de patata? xD chi, para probar, bueno y el codigo de arriba, cuando la instales para probar, dale al boton de atras del movil, veras
 
