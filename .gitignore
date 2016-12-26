@@ -1,4 +1,4 @@
 # Local configuration file (sdk path, etc)
 local.properties
-workspaces.xml
-vcs.xml
+.idea/
+.gradle/2.14.1/

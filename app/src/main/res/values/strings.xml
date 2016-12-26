@@ -12,7 +12,6 @@
     <!-- *Ayudas en TextEdits* -->
     <string name="tehDevoluciones">Ref...</string>
 
-
     <!-- *TextVIews* -->
     <string name="txtInicio">Bienvenido, elige la opcion que quieras en el menú desplegable</string>
     <string name="txtTotal">Total: </string>
