@@ -47,6 +47,13 @@
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/btnProductos"
+                    android:id="@+id/btnProductos"
+                    />
+
 
             </LinearLayout>
             <View
