@@ -7,6 +7,8 @@
     <string name="menu3">Opciones y configuración</string>
     <string name="menu4">Cierre de caja</string>
     <string name="menuparte2">Opciones básicas</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="cerrar">Cerrar</string>
 
 
     <!-- *Ayudas en TextEdits* -->
