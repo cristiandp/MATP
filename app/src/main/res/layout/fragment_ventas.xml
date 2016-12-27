@@ -64,7 +64,6 @@
                 android:textAlignment="textEnd" />
 
             <TextView
-                android:text="@string/euro"
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDivisa"

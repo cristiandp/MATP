@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.cristian.mamaandroidthermalpos.FragmentVentas;
 import com.example.cristian.mamaandroidthermalpos.R;
+import com.example.cristian.mamaandroidthermalpos.VentasInteface;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +20,7 @@ import java.util.Locale;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>{
     private List<Producto> items;
+    private static VentasInteface cantidadListener;
 
     public static class ProductoViewHolder extends RecyclerView.ViewHolder{
 
@@ -46,7 +48,8 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     }
 
 
-    public ProductoAdapter(List<Producto> items){
+    public ProductoAdapter(List<Producto> items,VentasInteface cantidadListener){
+        ProductoAdapter.cantidadListener = cantidadListener;
         this.items = items;
     }
 
@@ -63,7 +66,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @Override
     public void onBindViewHolder(ProductoViewHolder holder, final int position) {
         holder.txtNombreProducto.setText(items.get(position).getNombre());
-        String cantidad = "x"+items.get(position).getCantidadS();
+        final String cantidad = "x"+items.get(position).getCantidadS();
         holder.txtCantidadProducto.setText(cantidad);
 
 
@@ -78,7 +81,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             public void onClick(View view) {
                 items.get(position).setCantidad(items.get(position).getCantidad() +1 );
                 notifyItemChanged(position);
-
+                cantidadListener.VentasInterface(position,items.get(position).getCantidad());
             }
         });
 
@@ -90,7 +93,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 if(items.get(position).getCantidad() > 1 ){
                     items.get(position).setCantidad(items.get(position).getCantidad() -1 );
                     notifyItemChanged(position);
-
+                    cantidadListener.VentasInterface(position,items.get(position).getCantidad());
                 }
             }
         });
@@ -102,6 +105,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 items.remove(position);
                 notifyDataSetChanged();
                 notifyItemRemoved(position);
+                cantidadListener.VentasInterface(position,0);
             }
         });
     }

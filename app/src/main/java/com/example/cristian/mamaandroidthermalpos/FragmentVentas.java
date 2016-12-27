@@ -7,23 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
 import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.ProductoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Cristian on 15/12/2016.
  */
 
-public class FragmentVentas extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class FragmentVentas extends android.support.v4.app.Fragment implements View.OnClickListener, VentasInteface {
 
     View view;
-    TextView txtPrecio;
+    static TextView txtPrecio;
 
-    List items = new ArrayList();
+    List<Producto> items = new ArrayList<Producto>();
 
     public FragmentVentas(){
 
@@ -73,31 +75,43 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         recycler.setLayoutManager(lManager);
 
 // Crear un nuevo adaptador
-        RecyclerView.Adapter adapter = new ProductoAdapter(items);
+        RecyclerView.Adapter adapter = new ProductoAdapter(items,this);
         recycler.setAdapter(adapter);
 
-        actualizarPrecio(items);
+
+
+        actualizarPrecio();
         return view;
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-//            case R.id.btnBarras:
-//                Toast.makeText(getContext(),"Has dado click al boton en el fragment ventas",Toast.LENGTH_SHORT).show();
+
         }
     }
 
 
-    public  void actualizarPrecio(List items){
-        this.items = items;
+    public void actualizarPrecio(){
         float precio = 0 ;
+        String calculo;
         for (int i = 0 ; i < items.size();i++){
+
             Producto p =(Producto) items.get(i);
             precio += p.getPrecio()*p.getCantidad();
         }
+        calculo = String.format(Locale.getDefault(),"%.2f", precio)+"€" ;
+        txtPrecio.setText(calculo);
+    }
 
-        txtPrecio.setText(Float.toString(precio));
 
+    @Override
+    public void VentasInterface(int position, int cantidad) {
+        if (cantidad > 0) {
+            items.get(position).setCantidad(cantidad);
+        }
+        actualizarPrecio();
     }
 }
+
+
