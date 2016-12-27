@@ -78,6 +78,16 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
         return c;
     }
 
+//    public Cursor obtenerProducto(){
+//        String columnas[] = new String[]{NombreColumnas.NOMBRE_PRODUCTO};
+//        String seleccion =NombreColumnas.ID + " =?";
+//        String seleccionArgumentos[] = new String[]{id};
+//
+//        Cursor c = getReadableDatabase().query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos,null, null,null);
+//        return c;
+//
+//    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 

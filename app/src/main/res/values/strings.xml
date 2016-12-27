@@ -12,6 +12,7 @@
     <string name="reiniciar_impresora">Reset Impresora</string>
 
 
+
     <!-- *Ayudas en TextEdits* -->
     <string name="tehDevoluciones">Ref...</string>
 
@@ -21,6 +22,13 @@
     <string name="txtDinero">Cantidad:</string>
     <string name="txtTotalNumber">0.00</string>
     <string name="txtDivisa">Moneda: </string>
+    <string name="txtCategoria">Categoría: </string>
+    <string name="txtStock">Stock: </string>
+    <string name="txtNombreProd">Nombre producto: </string>
+    <string name="txtPrecio">Precio: </string>
+    <string name="txtRef">Referencia: </string>
+    <string name="txtInfo1">Añadir producto: </string>
+    <string name="txtInfo2">Editar producto: </string>
 
 
     <!-- *Botones* -->
@@ -34,6 +42,7 @@
     <string name="btnAnadirProd">Añadir producto</string>
     <string name="btnEditarProd">Editar producto</string>
     <string name="btnBorrarProd">Borrar producto</string>
+    <string name="btnGuardarCambios">Guardar cambios</string>
 
 
     <!-- *Divisas* -->
@@ -46,6 +55,13 @@
         <item name="euro">€</item>
         <item name="dolar">$</item>
     </string-array>
+
+    <!--Hint-->
+    <string name="edTxtCategoria">Ej.: Smartphones</string>
+    <string name="edTxtStock">Ej.: 50</string>
+    <string name="edTxtNombreProd">Ej.: Samsung Galaxy S7</string>
+    <string name="edTxtPrecio">Ej.: 370.90</string>
+    <string name="edTxtRef">Ej.: 0000000000</string>
 
 
     <string name="cambio">Cambio</string>
