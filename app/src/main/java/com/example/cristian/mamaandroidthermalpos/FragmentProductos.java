@@ -76,7 +76,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
 
             case R.id.btnEditarProd:
 
-                fragment = new FragmentAnadirEditar();
+              /*  fragment = new FragmentAnadirEditar();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
                         .commit();
 
@@ -85,7 +85,11 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
                 txtInfo = getText(R.string.txtInfo2).toString();
 
                 bundle.putString("info", txtInfo);
-                fragment.setArguments(bundle);
+                fragment.setArguments(bundle);*/
+
+                fragment = new FragmentEditarProd();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                        .commit();
 
 
                 break;
