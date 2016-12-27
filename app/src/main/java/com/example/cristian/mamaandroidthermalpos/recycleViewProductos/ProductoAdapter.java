@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.cristian.mamaandroidthermalpos.FragmentVentas;
 import com.example.cristian.mamaandroidthermalpos.R;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         }
 
 
+
     }
 
 
@@ -61,7 +63,9 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @Override
     public void onBindViewHolder(ProductoViewHolder holder, final int position) {
         holder.txtNombreProducto.setText(items.get(position).getNombre());
-        holder.txtCantidadProducto.setText(items.get(position).getCantidadS());
+        String cantidad = "x"+items.get(position).getCantidadS();
+        holder.txtCantidadProducto.setText(cantidad);
+
 
         //Se hace a parte para prevenir Warnings
         String calculo = String.format(Locale.getDefault(),"%.2f", items.get(position).getPrecio() * items.get(position).getCantidad())+"€" ;
@@ -74,10 +78,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             public void onClick(View view) {
                 items.get(position).setCantidad(items.get(position).getCantidad() +1 );
                 notifyItemChanged(position);
+
             }
         });
 
-        holder.btnCantidadMas.setText(R.string.btnMenos);
+        holder.btnCantidadMenos.setText(R.string.btnMenos);
         holder.btnCantidadMenos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,10 +90,12 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 if(items.get(position).getCantidad() > 1 ){
                     items.get(position).setCantidad(items.get(position).getCantidad() -1 );
                     notifyItemChanged(position);
+
                 }
             }
         });
 
+        holder.btnBorrarProducto.setText(R.string.btnBorrarProd);
         holder.btnBorrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,9 +107,14 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     }
 
 
+
+
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+
 }
+
+

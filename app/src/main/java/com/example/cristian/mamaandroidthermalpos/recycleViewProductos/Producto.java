@@ -6,13 +6,13 @@ package com.example.cristian.mamaandroidthermalpos.recycleViewProductos;
 
 public class Producto {
     String nombre;
-    int cantidad;
+    static int cantidad = 1;
     float precio;
 
-    public Producto(String nombre, float precio,int cantidad){
+    public  Producto(String nombre, float precio,int cantidad){
         this.nombre = nombre;
         this.precio = precio;
-        this.cantidad = cantidad;
+//        this.cantidad = cantidad;
     }
 
     public String getNombre() {

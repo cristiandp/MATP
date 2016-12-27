@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
 import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.ProductoAdapter;
@@ -20,7 +21,7 @@ import java.util.List;
 public class FragmentVentas extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     View view;
-
+    TextView txtPrecio;
 
     List items = new ArrayList();
 
@@ -36,7 +37,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         view = inflater.inflate(R.layout.fragment_ventas,container,false);
 //
 //        boton1 = (Button)  view.findViewById(R.id.btnBarras);
-//        txtPrecio = (TextView) view.findViewById(R.id.txtTotalNumber);
+        txtPrecio = (TextView) view.findViewById(R.id.txtPrecio);
 //        boton1.setOnClickListener(this);
 
 
@@ -75,7 +76,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         RecyclerView.Adapter adapter = new ProductoAdapter(items);
         recycler.setAdapter(adapter);
 
-        actualizarPrecio();
+        actualizarPrecio(items);
         return view;
     }
 
@@ -88,14 +89,15 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     }
 
 
-    public void actualizarPrecio(){
+    public  void actualizarPrecio(List items){
+        this.items = items;
         float precio = 0 ;
         for (int i = 0 ; i < items.size();i++){
             Producto p =(Producto) items.get(i);
-            precio += p.getPrecio();
+            precio += p.getPrecio()*p.getCantidad();
         }
 
-//        txtPrecio.setText(Float.toString(precio));
+        txtPrecio.setText(Float.toString(precio));
 
     }
 }

@@ -9,6 +9,7 @@
     <string name="menuparte2">Opciones básicas</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="cerrar">Cerrar</string>
+    <string name="reiniciar_impresora">Reset Impresora</string>
 
 
     <!-- *Ayudas en TextEdits* -->
@@ -31,8 +32,8 @@
     <string name="btnMenos">-</string>
     <string name="btnProductos">Productos</string>
     <string name="btnAnadirProd">Añadir producto</string>
-    <string name="btnEditarProd">Añadir producto</string>
-    <string name="btnBorrarProd">Añadir producto</string>
+    <string name="btnEditarProd">Editar producto</string>
+    <string name="btnBorrarProd">Borrar producto</string>
 
 
     <!-- *Divisas* -->
