@@ -95,7 +95,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             }
         });
 
-        holder.btnBorrarProducto.setText(R.string.btnBorrarProd);
+        holder.btnBorrarProducto.setText(R.string.btnBorrar);
         holder.btnBorrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
