@@ -1,5 +1,8 @@
 package com.example.cristian.mamaandroidthermalpos;
 
+import android.content.ContentValues;
+import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
+
 import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
 
 /**
@@ -15,12 +18,13 @@ public class Productos {
     private float precio;
     private String referencia;
 
-    public Productos(String referencia, float precio, String nombre_producto, int stock, String categoria) {
-        this.referencia = referencia;
-        this.precio = precio;
-        this.nombre_producto = nombre_producto;
-        this.stock = stock;
+    public Productos(String categoria, int stock, String nombre_producto, float precio, String referencia) {
+
         this.categoria = categoria;
+        this.stock = stock;
+        this.nombre_producto = nombre_producto;
+        this.precio = precio;
+        this.referencia = referencia;
     }
 
     public int getId() {
@@ -69,5 +73,20 @@ public class Productos {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+
+
+    public ContentValues toContentValues(){
+
+        //Contenedor de valores. Almacena las columnas del registro en pares clave-valor
+        ContentValues values = new ContentValues();
+
+        values.put(NombreColumnas.CATEGORIA, categoria);
+        values.put(NombreColumnas.STOCK, stock);
+        values.put(NombreColumnas.NOMBRE_PRODUCTO, nombre_producto);
+        values.put(NombreColumnas.PRECIO, precio);
+        values.put(NombreColumnas.REFERENCIA, referencia);
+
+        return values;
     }
 }

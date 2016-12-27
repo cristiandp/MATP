@@ -19,7 +19,7 @@ public class ProductosContract {
 
         public static final String NOMBRE_TABLA = "productos";
 
-        public static final String ID = "id";
+        public static final String ID = "_id";
         public static final String CATEGORIA = "categoria";
         public static final String STOCK = "stock";
         public static final String NOMBRE_PRODUCTO = "nombre_producto";
