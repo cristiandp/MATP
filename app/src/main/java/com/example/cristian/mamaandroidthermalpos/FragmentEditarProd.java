@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * Created by jessi on 27/12/2016.
@@ -59,6 +60,32 @@ public class FragmentEditarProd extends Fragment {
                         Button boton = new Button(getContext());
                         lyBtnProd.addView(boton);
                         boton.setText(c.getString(0));
+
+                        boton.setOnClickListener(new View.OnClickListener(){
+
+                            @Override
+                            public void onClick(View view) {
+
+                               Button b = (Button)view;
+
+                                String nombre_prod = b.getText().toString();
+
+                                Cursor c = dboh.obtenerDatosProd(nombre_prod);
+
+                                if(c.moveToFirst()){
+
+                                    while (c.moveToNext()){
+                                        String categoria = c.getString(0);
+                                        String stock = c.getString(1);
+                                        String precio = c.getString(2);
+                                        String referencia = c.getString(3);
+
+                                        Toast.makeText(getContext(), categoria + "|" + stock + "|" +  precio, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                        );
 
                         //TODO: Enviar datos de producto a editar al fragment FragmentAnadirEditar
 
