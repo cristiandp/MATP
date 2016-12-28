@@ -74,26 +74,7 @@ public class FragmentEditarProd extends Fragment {
 
                                 String nombre_prod = b.getText().toString();
 
-                                Cursor c = dboh.obtenerDatosProd(nombre_prod);
-
-                                if(c.moveToFirst()){
-
-                                    fragment = new FragmentAnadirEditar();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
-                                            .commit();
-
-                                    String categoria = c.getString(0);
-                                    String stock = c.getString(1);
-                                    String precio = c.getString(2);
-                                    String referencia = c.getString(3);
-
-                                    bundle = new Bundle();
-
-                                    bundle.putString("categoria", categoria);
-                                    bundle.putString("stock", stock);
-
-                                    fragment.setArguments(bundle);
-                                }
+                                enviarDatos(nombre_prod);
                             }
                         }
                         );
@@ -104,6 +85,20 @@ public class FragmentEditarProd extends Fragment {
                             boton = new Button(getContext());
                             lyBtnProd.addView(boton);
                             boton.setText(c.getString(0));
+
+                            boton.setOnClickListener(new View.OnClickListener(){
+
+                                @Override
+                                public void onClick(View view) {
+
+                                    Button b = (Button)view;
+
+                                    String nombre_prod = b.getText().toString();
+
+                                    enviarDatos(nombre_prod);
+                                 }
+                                }
+                            );
                         }
                     }
                     }
@@ -117,6 +112,41 @@ public class FragmentEditarProd extends Fragment {
             }
         });
         return vEditarProd;
+    }
+
+
+    public void enviarDatos(String nombre_prod){
+
+        Cursor c = dboh.obtenerDatosProd(nombre_prod);
+
+        if(c.moveToFirst()){
+
+            fragment = new FragmentAnadirEditar();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                    .commit();
+
+            String txtInfo = getText(R.string.txtInfo2).toString();
+
+            String categoria = c.getString(0);
+            String stock = c.getString(1);
+            String precio = c.getString(2);
+            String referencia = c.getString(3);
+
+
+
+            bundle = new Bundle();
+
+            bundle.putString("info",txtInfo);
+
+            bundle.putString("categoria", categoria);
+            bundle.putString("stock", stock);
+            bundle.putString("nombre_prod", nombre_prod);
+            bundle.putString("precio", precio);
+            bundle.putString("ref", referencia);
+
+            fragment.setArguments(bundle);
+        }
+
     }
 
 }

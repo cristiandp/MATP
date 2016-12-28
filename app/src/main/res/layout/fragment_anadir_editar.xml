@@ -61,7 +61,7 @@
         android:inputType="textPersonName"
         android:hint="@string/edTxtNombreProd"
         android:ems="10"
-        android:id="@+id/editText5" />
+        android:id="@+id/edTxtNombreProd" />
 
     <TextView
         android:text="Precio: "
@@ -75,7 +75,7 @@
         android:inputType="textPersonName"
         android:hint="@string/edTxtPrecio"
         android:ems="10"
-        android:id="@+id/editText6" />
+        android:id="@+id/edTxtPrecio" />
 
     <TextView
         android:text="@string/txtRef"
@@ -89,7 +89,7 @@
         android:inputType="textPersonName"
         android:hint="@string/edTxtRef"
         android:ems="10"
-        android:id="@+id/editText7" />
+        android:id="@+id/edTxtRef" />
 
     <Button
         android:layout_width="match_parent"
