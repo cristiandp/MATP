@@ -61,72 +61,30 @@ public class FragmentEditarBorrarProd extends Fragment {
                 lyBtnProd.removeAllViews();
                 String txtBuscar = edTxtBuscar.getText().toString();
 
-                if(txtBuscar.length() > 1){
+                if(txtBuscar.length() >1){
                     Cursor c = dboh.busquedaProductos(txtBuscar);
-                    if(!c.moveToFirst()) {
-                        return;
-                    }else{
-                        Button boton = new Button(getContext());
-                        lyBtnProd.addView(boton);
-                        boton.setText(c.getString(0));
-
-                        boton.setOnClickListener(new View.OnClickListener(){
-
-                            @Override
-                            public void onClick(View view) {
-
-                               Button b = (Button)view;
-
-                                String nombre_prod = b.getText().toString();
-
-
-                                String accion = bundle.getString("accionBtn");
-
-                                if(accion == "editar") {
-
-                                    enviarDatos(nombre_prod);
-                                }else if (accion =="borrar"){
-
-                                    borrarProd();
-
-                                }
-                            }
-                        }
-                        );
-
-
-                        while (c.moveToNext()) {
-                            boton = new Button(getContext());
+                    if(c.moveToFirst()){
+                        do{
+                            Button boton = new Button(getContext());
                             lyBtnProd.addView(boton);
                             boton.setText(c.getString(0));
-
                             boton.setOnClickListener(new View.OnClickListener(){
-
                                 @Override
                                 public void onClick(View view) {
-
                                     Button b = (Button)view;
-
                                     String nombre_prod = b.getText().toString();
-
                                     String accion = bundle.getString("accionBtn");
-
                                     if(accion == "editar") {
-
                                         enviarDatos(nombre_prod);
-                                    }else if (accion =="borrar"){
-
+                                    }else if (accion == "borrar"){
                                         borrarProd();
-
                                     }
-                                 }
                                 }
-                            );
-                        }
+                            });
+                        }while(c.moveToNext());
                     }
-                    }
-
                 }
+            }
 
 
             @Override
