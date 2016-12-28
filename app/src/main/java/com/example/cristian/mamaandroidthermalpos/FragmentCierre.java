@@ -1,6 +1,5 @@
 package com.example.cristian.mamaandroidthermalpos;
 
-import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +25,7 @@ public class FragmentCierre extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_cierre, container, false);
+        view = inflater.inflate(R.layout.fragment_estadisticas, container, false);
 
         producto = (TextView) view.findViewById(R.id.producto);
 

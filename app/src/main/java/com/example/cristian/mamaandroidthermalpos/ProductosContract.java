@@ -17,18 +17,16 @@ public class ProductosContract {
 
     public static abstract class NombreColumnas implements BaseColumns{
 
-        public static final String NOMBRE_TABLA = "productos";
-
-        public static final String ID = "_id";
-        public static final String CATEGORIA = "categoria";
-        public static final String STOCK = "stock";
-        public static final String NOMBRE_PRODUCTO = "nombre_producto";
-        public static final String PRECIO = "precio";
-        public static final String REFERENCIA = "referencia";
-
+        public static final String TABLA_PRODUCTOS = "productos";
+            public static final String ID = "_id";
+            public static final String CATEGORIA = "categoria";
+            public static final String STOCK = "stock";
+            public static final String NOMBRE_PRODUCTO = "nombre_producto";
+            public static final String PRECIO = "precio";
+            public static final String REFERENCIA = "referencia";
 
 
-
+        public static final String TABLA_TICKETS ="tickets";
     }
 
 

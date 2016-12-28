@@ -1,11 +1,9 @@
 package com.example.cristian.mamaandroidthermalpos;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
 
@@ -15,7 +13,7 @@ import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
 
 public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
-    public static final int VERSION_DB = 1;
+    public static final int VERSION_DB = 2;
     public static final String NOMBRE_DB ="productos.db";
 
 
@@ -29,7 +27,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + ProductosContract.NombreColumnas.NOMBRE_TABLA + " ("
+        db.execSQL("CREATE TABLE " + ProductosContract.NombreColumnas.TABLA_PRODUCTOS + " ("
         +NombreColumnas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         +NombreColumnas.CATEGORIA + " TEXT NOT NULL,"
         +NombreColumnas.STOCK + " INTEGER NOT NULL,"
@@ -41,7 +39,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
 
 
-        //Cursor c = db.query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos,null, null,null);
+        //Cursor c = db.query(NombreColumnas.TABLA_PRODUCTOS, columnas, seleccion, seleccionArgumentos,null, null,null);
 
 
     }
@@ -60,14 +58,14 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 //
 //        SQLiteDatabase db = getWritableDatabase();
 //
-//        return db.insert(NombreColumnas.NOMBRE_TABLA, null, productos.toContentValues());
+//        return db.insert(NombreColumnas.TABLA_PRODUCTOS, null, productos.toContentValues());
 //    }
 
 
 
     public long productoDePrueba (SQLiteDatabase db, Productos productos){
 
-      return db.insert(NombreColumnas.NOMBRE_TABLA, null,productos.toContentValues());
+      return db.insert(NombreColumnas.TABLA_PRODUCTOS, null,productos.toContentValues());
     }
 
     public Cursor obtenerProducto1(String id){
@@ -75,7 +73,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
         String seleccion =NombreColumnas.ID + " =?";
         String seleccionArgumentos[] = new String[]{id};
 
-        Cursor c = getReadableDatabase().query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos,null, null,null);
+        Cursor c = getReadableDatabase().query(NombreColumnas.TABLA_PRODUCTOS, columnas, seleccion, seleccionArgumentos,null, null,null);
         return c;
     }
 
@@ -88,7 +86,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
 
         String seleccionArgumentos[] = new String[]{"%"+clausula+"%","%"+clausula+"%","%"+clausula+"%","%"+clausula+"%"};
-        Cursor c = getReadableDatabase().query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos,null, null,null);
+        Cursor c = getReadableDatabase().query(NombreColumnas.TABLA_PRODUCTOS, columnas, seleccion, seleccionArgumentos,null, null,null);
 //        Cursor c = getReadableDatabase().rawQuery("SELECT * FROM productos WHERE '"+clausula+"' IN (_id,categoria,stock,nombre_producto,precio,referencia);",null);
         return c;
 
@@ -100,7 +98,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
         String seleccion = NombreColumnas.NOMBRE_PRODUCTO + " = ?";
         String seleccionArgumentos[] = new String[]{nombre_prod};
 
-        Cursor c = getReadableDatabase().query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos, null, null, null);
+        Cursor c = getReadableDatabase().query(NombreColumnas.TABLA_PRODUCTOS, columnas, seleccion, seleccionArgumentos, null, null, null);
 
         return c;
 
@@ -108,7 +106,19 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int versionDB, int nuevaVersionDB) {
+        //ESTA ZONA ES BASTANTE DELICADA. REGISTRAR SIEMPRE LOS CAMBIOS HECHOS.
+
+        /**
+         * Añadida tabla tickets(id,ref,hora)
+         * Añadida tabla ventas(id,ref,nombre,cantidad)
+         * Añadida tabla tickets_ventas(id_ticket,id_venta)
+         * Añadida tabla productos_ventas(id_producto,id_venta)
+         *
+         */
+        if(versionDB == 1 && nuevaVersionDB >= 2){
+            String sql = "CREATE TABLE tickets";
+        }
 
     }
 }
