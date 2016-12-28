@@ -2,10 +2,12 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     DrawerLayout drawerLayout;
     NavigationView navView;
     Switch swtBluetooth;
+    Fragment oldFragment = null;
+    private boolean dobleBackSalir = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +70,10 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                                 break;
                         }
 
-                        if(fragmentTransaction) {
+                        if(fragmentTransaction && oldFragment != fragment) {
                             getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_frame, fragment)
+                                    .replace(R.id.content_frame, fragment,"fragment_exit")
+                                    .addToBackStack(null)
                                     .commit();
 
                             item.setChecked(true);
@@ -95,15 +100,30 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        getFragmentManager().popBackStackImmediate();
-//        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }else{
-//            drawerLayout.openDrawer(GravityCompat.START);
-//        }
+        if(dobleBackSalir){
+            finish();
+            return;
+        }
 
+        Fragment fragmentCierre = getSupportFragmentManager().findFragmentByTag("fragment_exit");
+        if(fragmentCierre != null &&fragmentCierre.isVisible()){
+            //Estas en un fragment de salida
+            dobleBackSalir = true;
+            Toast.makeText(this, R.string.mensajeSalida, Toast.LENGTH_SHORT).show();
+            if(!drawerLayout.isDrawerOpen(GravityCompat.START)){
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+            //Reset de la variable en caso de que no le den
+            new Handler().postDelayed(new Runnable() {
 
+                @Override
+                public void run() {
+                    dobleBackSalir=false;
+                }
+            }, 2000);
+        }else{
+            getSupportFragmentManager().popBackStackImmediate();
+        }
     }
 
     @Override

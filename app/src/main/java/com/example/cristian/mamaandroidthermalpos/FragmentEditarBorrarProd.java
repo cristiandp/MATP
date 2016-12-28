@@ -145,7 +145,7 @@ public class FragmentEditarBorrarProd extends Fragment {
         if(c.moveToFirst()){
 
             fragment = new FragmentAnadirEditar();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
                     .commit();
 
             String txtInfo = getText(R.string.txtInfo2).toString();

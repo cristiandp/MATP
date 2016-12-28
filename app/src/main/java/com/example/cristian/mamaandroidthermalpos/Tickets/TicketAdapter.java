@@ -63,7 +63,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
                 bundle.putString("REF",items.get(position).getnRef());
                 fragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, fragment)
+                        .replace(R.id.content_frame, fragment).addToBackStack(null)
                         .commit();
             }
         });

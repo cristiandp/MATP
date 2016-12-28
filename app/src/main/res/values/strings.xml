@@ -64,5 +64,13 @@
     <string name="edTxtRef">Ej.: 0000000000</string>
 
 
+
+    <!-- *Mensajes* -->
+    <string name="mensajeSalida">Presiona atrás de nuevo para salir</string>
+
+
+
     <string name="cambio">Cambio</string>
+
 </resources>
+

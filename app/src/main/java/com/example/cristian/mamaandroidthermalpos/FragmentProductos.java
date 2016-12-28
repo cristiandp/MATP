@@ -52,7 +52,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
             case R.id.btnAnadirProd:
 
                 fragment = new FragmentAnadirEditar();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
                         .commit();
 
                 bundle = new Bundle();
@@ -73,7 +73,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
             case R.id.btnEditarProd:
 
                 fragment = new FragmentEditarBorrarProd();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
                         .commit();
 
                 bundle = new Bundle();
@@ -88,7 +88,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
             case R.id.btnBorrarProd:
 
                 fragment = new FragmentEditarBorrarProd();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
                         .commit();
 
 

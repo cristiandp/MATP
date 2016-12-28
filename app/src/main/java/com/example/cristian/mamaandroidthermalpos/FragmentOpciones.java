@@ -2,6 +2,7 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class FragmentOpciones extends android.support.v4.app.Fragment implements
                 // que es remplazar el content_frame por el fragment indicado
 
                 getActivity().getSupportFragmentManager()
-                        .beginTransaction().replace(R.id.content_frame,fragment)
+                        .beginTransaction().replace(R.id.content_frame,fragment).addToBackStack(null)
                         .commit();
                 break;
         }
