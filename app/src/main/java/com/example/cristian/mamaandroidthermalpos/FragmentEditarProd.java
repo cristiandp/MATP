@@ -55,18 +55,23 @@ public class FragmentEditarProd extends Fragment {
                 String txtBuscar = edTxtBuscar.getText().toString();
                 if(txtBuscar.length() > 1){
                     Cursor c = dboh.obtenerProducto(txtBuscar);
-                    if(c.moveToFirst()){
+                    if(!c.moveToFirst()) {
+                        return;
+                    }else{
+                        Button boton = new Button(getContext());
+                        lyEditarProd.addView(boton);
+                        boton.setText(c.getString(0));
+
                         while (c.moveToNext()) {
-
-                            Button boton = new Button(getContext());
-
+                            boton = new Button(getContext());
                             lyEditarProd.addView(boton);
-
                             boton.setText(c.getString(0));
                         }
                     }
+                    }
+
                 }
-            }
+
 
             @Override
             public void afterTextChanged(Editable editable) {
