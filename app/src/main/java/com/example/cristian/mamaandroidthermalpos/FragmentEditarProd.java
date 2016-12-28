@@ -26,7 +26,7 @@ public class FragmentEditarProd extends Fragment {
 
     EditText edTxtBuscar;
 
-    LinearLayout lyEditarProd;
+    LinearLayout lyBtnProd;
 
     ProductosDBOpenHelper dboh ;
 
@@ -36,7 +36,7 @@ public class FragmentEditarProd extends Fragment {
 
         edTxtBuscar = (EditText)vEditarProd.findViewById(R.id.edTxtBuscar);
 
-        lyEditarProd = (LinearLayout)vEditarProd.findViewById(R.id.lyEditarProd);
+        lyBtnProd = (LinearLayout)vEditarProd.findViewById(R.id.lyBtnProductos);
 
         dboh = new ProductosDBOpenHelper(getContext());
 
@@ -52,6 +52,8 @@ public class FragmentEditarProd extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                lyBtnProd.removeAllViews();
                 String txtBuscar = edTxtBuscar.getText().toString();
                 if(txtBuscar.length() > 1){
                     Cursor c = dboh.obtenerProducto(txtBuscar);
@@ -59,12 +61,12 @@ public class FragmentEditarProd extends Fragment {
                         return;
                     }else{
                         Button boton = new Button(getContext());
-                        lyEditarProd.addView(boton);
+                        lyBtnProd.addView(boton);
                         boton.setText(c.getString(0));
 
                         while (c.moveToNext()) {
                             boton = new Button(getContext());
-                            lyEditarProd.addView(boton);
+                            lyBtnProd.addView(boton);
                             boton.setText(c.getString(0));
                         }
                     }
