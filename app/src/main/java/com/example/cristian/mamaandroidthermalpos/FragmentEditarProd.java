@@ -90,6 +90,7 @@ public class FragmentEditarProd extends Fragment {
                                     bundle = new Bundle();
 
                                     bundle.putString("categoria", categoria);
+                                    bundle.putString("stock", stock);
 
                                     fragment.setArguments(bundle);
                                 }
