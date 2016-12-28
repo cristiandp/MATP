@@ -27,6 +27,10 @@ public class FragmentEditarProd extends Fragment {
 
     ProductosDBOpenHelper dboh ;
 
+    Fragment fragment;
+    Bundle bundle;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         vEditarProd = inflater.inflate(R.layout.fragment_editarprod, container, false);
@@ -74,14 +78,20 @@ public class FragmentEditarProd extends Fragment {
 
                                 if(c.moveToFirst()){
 
-                                    while (c.moveToNext()){
-                                        String categoria = c.getString(0);
-                                        String stock = c.getString(1);
-                                        String precio = c.getString(2);
-                                        String referencia = c.getString(3);
+                                    fragment = new FragmentAnadirEditar();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                                            .commit();
 
-                                        Toast.makeText(getContext(), categoria + "|" + stock + "|" +  precio, Toast.LENGTH_SHORT).show();
-                                    }
+                                    String categoria = c.getString(0);
+                                    String stock = c.getString(1);
+                                    String precio = c.getString(2);
+                                    String referencia = c.getString(3);
+
+                                    bundle = new Bundle();
+
+                                    bundle.putString("categoria", categoria);
+
+                                    fragment.setArguments(bundle);
                                 }
                             }
                         }
