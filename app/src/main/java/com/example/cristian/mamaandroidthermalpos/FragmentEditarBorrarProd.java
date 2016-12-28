@@ -1,8 +1,10 @@
 package com.example.cristian.mamaandroidthermalpos;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,7 +19,7 @@ import android.widget.Toast;
  * Created by jessi on 27/12/2016.
  */
 
-public class FragmentEditarProd extends Fragment {
+public class FragmentEditarBorrarProd extends Fragment {
 
     View vEditarProd;
 
@@ -41,6 +43,8 @@ public class FragmentEditarProd extends Fragment {
 
         dboh = new ProductosDBOpenHelper(getContext());
 
+        bundle = this.getArguments();
+
 
 
 
@@ -56,6 +60,7 @@ public class FragmentEditarProd extends Fragment {
 
                 lyBtnProd.removeAllViews();
                 String txtBuscar = edTxtBuscar.getText().toString();
+
                 if(txtBuscar.length() > 1){
                     Cursor c = dboh.busquedaProductos(txtBuscar);
                     if(!c.moveToFirst()) {
@@ -74,12 +79,21 @@ public class FragmentEditarProd extends Fragment {
 
                                 String nombre_prod = b.getText().toString();
 
-                                enviarDatos(nombre_prod);
+
+                                String accion = bundle.getString("accionBtn");
+
+                                if(accion == "editar") {
+
+                                    enviarDatos(nombre_prod);
+                                }else if (accion =="borrar"){
+
+                                    borrarProd();
+
+                                }
                             }
                         }
                         );
 
-                        //TODO: Enviar datos de producto a editar al fragment FragmentAnadirEditar
 
                         while (c.moveToNext()) {
                             boton = new Button(getContext());
@@ -95,7 +109,16 @@ public class FragmentEditarProd extends Fragment {
 
                                     String nombre_prod = b.getText().toString();
 
-                                    enviarDatos(nombre_prod);
+                                    String accion = bundle.getString("accionBtn");
+
+                                    if(accion == "editar") {
+
+                                        enviarDatos(nombre_prod);
+                                    }else if (accion =="borrar"){
+
+                                        borrarProd();
+
+                                    }
                                  }
                                 }
                             );
@@ -146,6 +169,38 @@ public class FragmentEditarProd extends Fragment {
 
             fragment.setArguments(bundle);
         }
+
+    }
+
+    public void borrarProd(){
+
+        AlertDialog.Builder confirmarBorrar = new AlertDialog.Builder(getContext());
+
+        confirmarBorrar.setTitle("Borrar elemento");
+
+        confirmarBorrar.setMessage("¿Deseas borrar este elemento de la tabla?");
+
+        confirmarBorrar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                //TODO: Borrar elemento de la BD
+
+                Toast.makeText(getContext(), "Has simulado borrar un elemento", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        confirmarBorrar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Toast.makeText(getContext(), "Has cancelado la acción", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        confirmarBorrar.show();
 
     }
 

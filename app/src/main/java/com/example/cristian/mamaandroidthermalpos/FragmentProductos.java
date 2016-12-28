@@ -1,15 +1,11 @@
 package com.example.cristian.mamaandroidthermalpos;
 
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-
-import com.example.cristian.mamaandroidthermalpos.R;
 //import com.example.cristian.mamaandroidthermalpos.recycleviewproductos.Producto;
 
 /**
@@ -63,7 +59,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
 
 
 
-                txtInfo = getText(R.string.txtInfo1).toString();
+                String txtInfo = getText(R.string.txtInfo1).toString();
 
 
 
@@ -76,26 +72,30 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
 
             case R.id.btnEditarProd:
 
-              /*  fragment = new FragmentAnadirEditar();
+                fragment = new FragmentEditarBorrarProd();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
                         .commit();
 
                 bundle = new Bundle();
+                bundle.putString("accionBtn", "editar");
 
-                txtInfo = getText(R.string.txtInfo2).toString();
-
-                bundle.putString("info", txtInfo);
-                fragment.setArguments(bundle);*/
-
-                fragment = new FragmentEditarProd();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
-                        .commit();
+                fragment.setArguments(bundle);
 
 
                 break;
 
 
             case R.id.btnBorrarProd:
+
+                fragment = new FragmentEditarBorrarProd();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
+                        .commit();
+
+
+                bundle = new Bundle();
+                bundle.putString("accionBtn", "borrar");
+
+                fragment.setArguments(bundle);
 
 
                 break;
