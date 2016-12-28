@@ -96,11 +96,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }else{
-            drawerLayout.openDrawer(GravityCompat.START);
-        }
+        getFragmentManager().popBackStackImmediate();
+//        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//        }else{
+//            drawerLayout.openDrawer(GravityCompat.START);
+//        }
 
 
     }
