@@ -5,16 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by jessi on 27/12/2016.
@@ -56,13 +52,15 @@ public class FragmentEditarProd extends Fragment {
                 lyBtnProd.removeAllViews();
                 String txtBuscar = edTxtBuscar.getText().toString();
                 if(txtBuscar.length() > 1){
-                    Cursor c = dboh.obtenerProducto(txtBuscar);
+                    Cursor c = dboh.busquedaProductos(txtBuscar);
                     if(!c.moveToFirst()) {
                         return;
                     }else{
                         Button boton = new Button(getContext());
                         lyBtnProd.addView(boton);
                         boton.setText(c.getString(0));
+
+                        //TODO: Enviar datos de producto a editar al fragment FragmentAnadirEditar
 
                         while (c.moveToNext()) {
                             boton = new Button(getContext());

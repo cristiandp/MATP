@@ -79,7 +79,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor obtenerProducto(String clausula){
+    public Cursor busquedaProductos(String clausula){
         String columnas[] = new String[]{NombreColumnas.NOMBRE_PRODUCTO};
         String seleccion = NombreColumnas.CATEGORIA + " LIKE ? OR " +
                 NombreColumnas.NOMBRE_PRODUCTO + " LIKE ? OR " +
@@ -93,6 +93,13 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
         return c;
 
     }
+
+    //TODO: obtenerDatosProd
+
+//    public Cursor obtenerDatosProd(String nombre_prod){
+//
+//
+//    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
