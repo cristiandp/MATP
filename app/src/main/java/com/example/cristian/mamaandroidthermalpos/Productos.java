@@ -1,9 +1,7 @@
 package com.example.cristian.mamaandroidthermalpos;
 
 import android.content.ContentValues;
-import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
-
-import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
+import com.example.cristian.mamaandroidthermalpos.dbContract.*;
 
 /**
  * Created by jessi on 26/12/2016.

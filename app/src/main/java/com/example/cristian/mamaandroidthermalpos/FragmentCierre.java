@@ -35,7 +35,7 @@ public class FragmentCierre extends android.support.v4.app.Fragment {
         if(c.moveToFirst() == false){
             Toast.makeText(view.getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
         }else{
-            String nombreProducto = c.getString(c.getColumnIndex(ProductosContract.NombreColumnas.NOMBRE_PRODUCTO));
+            String nombreProducto = c.getString(c.getColumnIndex(dbContract.NombreColumnas.NOMBRE_PRODUCTO));
             producto.setText(nombreProducto);
         }
 

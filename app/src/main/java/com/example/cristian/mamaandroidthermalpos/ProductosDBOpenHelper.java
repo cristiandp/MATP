@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
+import com.example.cristian.mamaandroidthermalpos.dbContract.*;
 
 /**
  * Created by jessi on 26/12/2016.
@@ -13,7 +13,7 @@ import com.example.cristian.mamaandroidthermalpos.ProductosContract.*;
 
 public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
-    public static final int VERSION_DB = 2;
+    public static final int VERSION_DB = 1;
     public static final String NOMBRE_DB ="productos.db";
 
 
@@ -27,7 +27,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + ProductosContract.NombreColumnas.TABLA_PRODUCTOS + " ("
+        db.execSQL("CREATE TABLE " + dbContract.NombreColumnas.TABLA_PRODUCTOS + " ("
         +NombreColumnas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         +NombreColumnas.CATEGORIA + " TEXT NOT NULL,"
         +NombreColumnas.STOCK + " INTEGER NOT NULL,"
@@ -108,7 +108,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int versionDB, int nuevaVersionDB) {
         //ESTA ZONA ES BASTANTE DELICADA. REGISTRAR SIEMPRE LOS CAMBIOS HECHOS.
-
+        //TODO Acabar actualización base de datos
         /**
          * Añadida tabla tickets(id,ref,hora)
          * Añadida tabla ventas(id,ref,nombre,cantidad)
