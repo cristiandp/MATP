@@ -3,13 +3,17 @@ package com.example.cristian.mamaandroidthermalpos;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -24,6 +28,7 @@ public class FragmentEditarProd extends Fragment {
 
     LinearLayout lyEditarProd;
 
+    ProductosDBOpenHelper dboh ;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -33,32 +38,41 @@ public class FragmentEditarProd extends Fragment {
 
         lyEditarProd = (LinearLayout)vEditarProd.findViewById(R.id.lyEditarProd);
 
+        dboh = new ProductosDBOpenHelper(getContext());
 
 
-        ProductosDBOpenHelper dboh = new ProductosDBOpenHelper(getContext());
-
-        String txtBuscar = edTxtBuscar.getText().toString();
 
 
-        Toast.makeText(getContext(), txtBuscar, Toast.LENGTH_SHORT).show();
 
-        if(txtBuscar != "") {
-
-            Cursor c = dboh.obtenerProducto(edTxtBuscar.getText().toString());
-
-            while (c.moveToNext()) {
-
-                Button boton = new Button(getContext());
-
-                lyEditarProd.addView(boton);
-
-                boton.setText(c.getString(0));
+        edTxtBuscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
-        }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String txtBuscar = edTxtBuscar.getText().toString();
+                if(txtBuscar.length() > 1){
+                    Cursor c = dboh.obtenerProducto(txtBuscar);
+                    if(c.moveToFirst()){
+                        while (c.moveToNext()) {
 
+                            Button boton = new Button(getContext());
 
+                            lyEditarProd.addView(boton);
+
+                            boton.setText(c.getString(0));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         return vEditarProd;
     }
 

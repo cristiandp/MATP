@@ -80,12 +80,17 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
     public Cursor obtenerProducto(String clausula){
         String columnas[] = new String[]{NombreColumnas.NOMBRE_PRODUCTO};
-        String seleccion = "? IN (" + NombreColumnas.ID + ", " + NombreColumnas.CATEGORIA + ", "
-                + NombreColumnas.STOCK + ", " + NombreColumnas.NOMBRE_PRODUCTO + ", "
-                +NombreColumnas.PRECIO + ", " + NombreColumnas.REFERENCIA + ")";
-        String seleccionArgumentos[] = new String[]{clausula};
+        String seleccion = " ? IN (" +
+                NombreColumnas.CATEGORIA + ", " +
+                NombreColumnas.NOMBRE_PRODUCTO + ", " +
+                NombreColumnas.PRECIO + ", " +
+                NombreColumnas.REFERENCIA +
+                ")";
 
+
+        String seleccionArgumentos[] = new String[]{clausula};
         Cursor c = getReadableDatabase().query(NombreColumnas.NOMBRE_TABLA, columnas, seleccion, seleccionArgumentos,null, null,null);
+//        Cursor c = getReadableDatabase().rawQuery("SELECT * FROM productos WHERE '"+clausula+"' IN (_id,categoria,stock,nombre_producto,precio,referencia);",null);
         return c;
 
     }
