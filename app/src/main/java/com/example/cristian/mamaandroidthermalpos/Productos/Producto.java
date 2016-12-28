@@ -1,13 +1,15 @@
-package com.example.cristian.mamaandroidthermalpos;
+package com.example.cristian.mamaandroidthermalpos.Productos;
 
 import android.content.ContentValues;
-import com.example.cristian.mamaandroidthermalpos.dbContract.*;
+import com.example.cristian.mamaandroidthermalpos.dbContract;
+
+
 
 /**
- * Created by jessi on 26/12/2016.
+ * Created by Cristian on 16/12/2016.
  */
 
-public class Productos {
+public class Producto {
 
     private int id;
     private String categoria;
@@ -15,8 +17,16 @@ public class Productos {
     private String nombre_producto;
     private float precio;
     private String referencia;
+    private int cantidad;
 
-    public Productos(String categoria, int stock, String nombre_producto, float precio, String referencia) {
+    public Producto(String nombre_producto,float precio,int cantidad){
+        this.nombre_producto = nombre_producto;
+        this.precio = precio;
+        this.cantidad = cantidad;
+
+    }
+
+    public Producto(String categoria, int stock, String nombre_producto, float precio, String referencia) {
 
         this.categoria = categoria;
         this.stock = stock;
@@ -79,12 +89,24 @@ public class Productos {
         //Contenedor de valores. Almacena las columnas del registro en pares clave-valor
         ContentValues values = new ContentValues();
 
-        values.put(NombreColumnas.CATEGORIA, categoria);
-        values.put(NombreColumnas.STOCK, stock);
-        values.put(NombreColumnas.NOMBRE_PRODUCTO, nombre_producto);
-        values.put(NombreColumnas.PRECIO, precio);
-        values.put(NombreColumnas.REFERENCIA, referencia);
+        values.put(dbContract.NombreColumnas.CATEGORIA, categoria);
+        values.put(dbContract.NombreColumnas.STOCK, stock);
+        values.put(dbContract.NombreColumnas.NOMBRE_PRODUCTO, nombre_producto);
+        values.put(dbContract.NombreColumnas.PRECIO, precio);
+        values.put(dbContract.NombreColumnas.REFERENCIA, referencia);
 
         return values;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getCantidadS(){
+        return Integer.toString(cantidad);
     }
 }

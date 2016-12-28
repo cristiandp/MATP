@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.Producto;
-import com.example.cristian.mamaandroidthermalpos.recycleViewProductos.ProductoAdapter;
+import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
+import com.example.cristian.mamaandroidthermalpos.Productos.ProductoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

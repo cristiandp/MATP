@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.cristian.mamaandroidthermalpos.dbContract.*;
+import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 
 /**
  * Created by jessi on 26/12/2016.
@@ -13,7 +14,7 @@ import com.example.cristian.mamaandroidthermalpos.dbContract.*;
 
 public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
-    public static final int VERSION_DB = 1;
+    public static final int VERSION_DB = 2;
     public static final String NOMBRE_DB ="productos.db";
 
 
@@ -26,6 +27,11 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        /**
+         * Aqui van las tablas de datos cuando se crea la aplicación
+         * Se deberia mover las actualizaciones de prueba a esta parte cuando se acabe el desarrollo
+         * TODO Mover actualizaciones de prueba a esta parte al final
+         */
 
         db.execSQL("CREATE TABLE " + dbContract.NombreColumnas.TABLA_PRODUCTOS + " ("
         +NombreColumnas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -44,17 +50,24 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * FUNCIÓN dUMMY
+     */
+    private void dummyData(SQLiteDatabase db){
+
+    }
+
 
     private void datosPrueba(SQLiteDatabase db){
 
-        //Log.d("INSERCCION",Long.toString(productoDePrueba(db, new Productos("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"))));
-        productoDePrueba(db, new Productos("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"));
-        productoDePrueba(db, new Productos("Tablets", 20, "Bq Edison 3", 212.30f, "1111111111"));
-        productoDePrueba(db, new Productos("Smartphones", 70, "Samsung Galaxy S7", 389.50f, "2222222222"));
-        productoDePrueba(db, new Productos("Fundas", 50, "Funda iPhone 7", 5.3f,"3333333333"));
+        //Log.d("INSERCCION",Long.toString(productoDePrueba(db, new Producto("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"))));
+        productoDePrueba(db, new Producto("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"));
+        productoDePrueba(db, new Producto("Tablets", 20, "Bq Edison 3", 212.30f, "1111111111"));
+        productoDePrueba(db, new Producto("Smartphones", 70, "Samsung Galaxy S7", 389.50f, "2222222222"));
+        productoDePrueba(db, new Producto("Fundas", 50, "Funda iPhone 7", 5.3f,"3333333333"));
 
     }
-//    public long insertarProductos(Productos productos){
+//    public long insertarProductos(Producto productos){
 //
 //        SQLiteDatabase db = getWritableDatabase();
 //
@@ -63,7 +76,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
 
 
-    public long productoDePrueba (SQLiteDatabase db, Productos productos){
+    public long productoDePrueba (SQLiteDatabase db, Producto productos){
 
       return db.insert(NombreColumnas.TABLA_PRODUCTOS, null,productos.toContentValues());
     }
@@ -106,7 +119,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int versionDB, int nuevaVersionDB) {
+    public void onUpgrade(SQLiteDatabase db, int versionDB, int nuevaVersionDB) {
         //ESTA ZONA ES BASTANTE DELICADA. REGISTRAR SIEMPRE LOS CAMBIOS HECHOS.
         //TODO Acabar actualización base de datos
         /**
@@ -117,7 +130,42 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
          *
          */
         if(versionDB == 1 && nuevaVersionDB >= 2){
-            String sql = "CREATE TABLE tickets";
+            /**
+             * columna hora se rellena con la hora de la insercción automáticamente
+             */
+            String sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS+"(" +
+                    NombreColumnas.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    NombreColumnas.REFERENCIA + " TEXT NOT NULL," +
+                    NombreColumnas.HORA + " DATETIME DEFAULT CURRENT_TIMESTAMP" +
+                    ")";
+            db.execSQL(sql);
+            /**
+             * la cantidad de venta es 1 por default
+             */
+            sql = "CREATE TABLE "+NombreColumnas.TABLA_VENTAS+"("+
+                    NombreColumnas.ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    NombreColumnas.NOMBRE_PRODUCTO + "TEXT NOT NULL," +
+                    NombreColumnas.CANTIDAD + "INTEGER DEFAULT 1" +
+                    ")";
+            db.execSQL(sql);
+
+            //Tablas forágenas
+            sql = "CREATE TABLE "+NombreColumnas.TABLA_PRODUCTOS_VENTAS+"(" +
+                    NombreColumnas.ID_PRODUCTO +" INTEGER," +
+                    NombreColumnas.ID_VENTA + " INTEGER," +
+                    "PRIMARY KEY("+NombreColumnas.ID_PRODUCTO+","+NombreColumnas.ID_VENTA+")," +
+                    "FOREIGN KEY("+NombreColumnas.ID_PRODUCTO+") REFERENCES "+NombreColumnas.TABLA_PRODUCTOS+"("+NombreColumnas.ID+")," +
+                    "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
+                    ")";
+            db.execSQL(sql);
+            sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS_VENTAS+"(" +
+                    NombreColumnas.ID_TICKET +" INTEGER," +
+                    NombreColumnas.ID_VENTA + " INTEGER," +
+                    "PRIMARY KEY("+NombreColumnas.ID_TICKET+","+NombreColumnas.ID_VENTA+")," +
+                    "FOREIGN KEY("+NombreColumnas.ID_TICKET+") REFERENCES "+NombreColumnas.TABLA_TICKETS+"("+NombreColumnas.ID+")," +
+                    "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
+                    ")";
+            db.execSQL(sql);
         }
 
     }

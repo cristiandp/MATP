@@ -1,4 +1,4 @@
-package com.example.cristian.mamaandroidthermalpos.recycleViewTickets;
+package com.example.cristian.mamaandroidthermalpos.Tickets;
 
 /**
  * Created by Cristian on 16/12/2016.

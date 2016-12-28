@@ -18,17 +18,28 @@ public class dbContract {
     public static abstract class NombreColumnas implements BaseColumns{
 
         //TABLAS
-        static final String TABLA_TICKETS ="tickets";
-        static final String TABLA_PRODUCTOS = "productos";
+        public static final String TABLA_TICKETS ="tickets";
+        public static final String TABLA_PRODUCTOS = "productos";
+        public static final String TABLA_VENTAS = "ventas";
+        public static final String TABLA_TICKETS_VENTAS = "tickets_ventas";
+        public static final String TABLA_PRODUCTOS_VENTAS = "productos_ventas";
 
         //COLUMNAS
-        static final String ID = "_id";
-        static final String CATEGORIA = "categoria";
-        static final String STOCK = "stock";
-        static final String NOMBRE_PRODUCTO = "nombre_producto";
-        static final String PRECIO = "precio";
-        static final String REFERENCIA = "referencia";
-        static final String HORA = "hora";
+        public static final String ID = "_id";
+        public static final String CATEGORIA = "categoria";
+        public static final String STOCK = "stock";
+        public static final String NOMBRE_PRODUCTO = "nombre_producto";
+        public static final String PRECIO = "precio";
+        public static final String REFERENCIA = "referencia";
+        public static final String HORA = "hora";
+        public static final String CANTIDAD = "cantidad";
+
+
+        //ID's forágenas
+        public static final String ID_PRODUCTO ="id_producto";
+        public static final String ID_TICKET ="id_ticket";
+        public static final String ID_VENTA ="id_venta";
+
 
 
 

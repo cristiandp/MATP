@@ -1,4 +1,4 @@
-package com.example.cristian.mamaandroidthermalpos.recycleViewProductos;
+package com.example.cristian.mamaandroidthermalpos.Productos;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.cristian.mamaandroidthermalpos.FragmentVentas;
 import com.example.cristian.mamaandroidthermalpos.R;
 import com.example.cristian.mamaandroidthermalpos.VentasInteface;
 
@@ -65,7 +64,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
     @Override
     public void onBindViewHolder(ProductoViewHolder holder, final int position) {
-        holder.txtNombreProducto.setText(items.get(position).getNombre());
+        holder.txtNombreProducto.setText(items.get(position).getNombre_producto());
         final String cantidad = "x"+items.get(position).getCantidadS();
         holder.txtCantidadProducto.setText(cantidad);
 
