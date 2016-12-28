@@ -49,7 +49,8 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
     private void datosPrueba(SQLiteDatabase db){
 
-        Log.d("INSERCCION",Long.toString(productoDePrueba(db, new Productos("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"))));
+        //Log.d("INSERCCION",Long.toString(productoDePrueba(db, new Productos("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"))));
+        productoDePrueba(db, new Productos("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"));
         productoDePrueba(db, new Productos("Tablets", 20, "Bq Edison 3", 212.30f, "1111111111"));
         productoDePrueba(db, new Productos("Smartphones", 70, "Samsung Galaxy S7", 389.50f, "2222222222"));
         productoDePrueba(db, new Productos("Fundas", 50, "Funda iPhone 7", 5.3f,"3333333333"));

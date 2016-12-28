@@ -65,6 +65,8 @@ public class FragmentEditarProd extends Fragment {
                             boton.setText(c.getString(0));
                         }
                     }
+
+
                 }
             }
 
