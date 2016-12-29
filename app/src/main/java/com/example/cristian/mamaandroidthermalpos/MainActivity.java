@@ -186,16 +186,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        ConectarBluetooth cB = new ConectarBluetooth();
+
         if(b){
             Toast.makeText(getApplicationContext(),"El switch esta en ON",Toast.LENGTH_SHORT).show();
-
-            cB.empezarBusqueda(getApplicationContext());
+            bAdapter.enable();
 
         }else{
             Toast.makeText(getApplicationContext(),"El switch esta en OFF",Toast.LENGTH_SHORT).show();
-
-            cB.finalizarBúsqueda(getApplicationContext());
+            bAdapter.disable();
         }
     }
 }
