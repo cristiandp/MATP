@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                                 fragment = new FragmentOpciones();
                                 fragmentTransaction=true;
                                 break;
+
+                            case R.id.menu_salir:
+                                finish();
+                                break;
                         }
 
                         if(fragmentTransaction && oldFragment != fragment) {
