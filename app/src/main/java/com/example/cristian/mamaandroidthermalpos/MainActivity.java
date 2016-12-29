@@ -1,6 +1,7 @@
 package com.example.cristian.mamaandroidthermalpos;
 
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,8 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -128,10 +132,16 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        ConectarBluetooth cB = new ConectarBluetooth();
         if(b){
             Toast.makeText(getApplicationContext(),"El switch esta en ON",Toast.LENGTH_SHORT).show();
+
+            cB.empezarBusqueda(getApplicationContext());
+
         }else{
             Toast.makeText(getApplicationContext(),"El switch esta en OFF",Toast.LENGTH_SHORT).show();
+
+            cB.finalizarBúsqueda(getApplicationContext());
         }
     }
 }
