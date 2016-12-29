@@ -29,6 +29,8 @@
     <string name="txtRef">Referencia: </string>
     <string name="txtInfo1">Añadir producto: </string>
     <string name="txtInfo2">Editar producto: </string>
+    <string name="txtDevoluciones">Busca por ref o fecha</string>
+
 
 
     <!-- *Botones* -->
@@ -62,6 +64,7 @@
     <string name="edTxtNombreProd">Ej.: Samsung Galaxy S7</string>
     <string name="edTxtPrecio">Ej.: 370.90</string>
     <string name="edTxtRef">Ej.: 0000000000</string>
+    <string name="edDevRef">Ref,fecha,etc</string>
 
 
 

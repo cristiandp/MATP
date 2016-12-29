@@ -54,7 +54,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
     @Override
     public void onBindViewHolder(TicketViewHolder holder, final int position) {
-        holder.btnTicket.setText(items.get(position).getnRef());
+        String texto = "Ticket Ref: "+items.get(position).getnRef();
+        holder.btnTicket.setText(texto);
         holder.btnTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

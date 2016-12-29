@@ -5,24 +5,52 @@
     android:background="@color/blanco"
     android:layout_margin="1dp">
 
-    <EditText
+    <TextView
+        android:text="@string/txtDevoluciones"
         android:layout_width="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/editText"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_height="40dp"
-        android:contentDescription="@string/tehDevoluciones" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30sp"
+        android:textStyle="normal|bold" />
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/editText"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcvDevoluciones"
+        android:scrollbars="horizontal"
+        android:clipToPadding="false"
+        android:layout_below="@+id/editTextCont"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/rcvDevoluciones" />
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/editTextCont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:padding="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_height="40dp"
+            android:contentDescription="@string/tehDevoluciones"
+            android:hint="@string/edDevRef"
+            android:layout_weight="0.06"
+            android:paddingLeft="10dp"
+            android:background="@drawable/roundedborders"
+            android:layout_width="match_parent"/>
+    </LinearLayout>
+
 </RelativeLayout>
