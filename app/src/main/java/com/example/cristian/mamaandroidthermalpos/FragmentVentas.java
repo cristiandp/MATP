@@ -86,6 +86,9 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            if(view.getId() == R.id.btnTicket){
+
+            }
 
         }
     }
