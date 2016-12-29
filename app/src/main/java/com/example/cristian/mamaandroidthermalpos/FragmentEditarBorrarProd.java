@@ -27,7 +27,7 @@ public class FragmentEditarBorrarProd extends Fragment {
 
     LinearLayout lyBtnProd;
 
-    ProductosDBOpenHelper dboh ;
+    DBOpenHelper dboh ;
 
     Fragment fragment;
     Bundle bundle;
@@ -41,7 +41,7 @@ public class FragmentEditarBorrarProd extends Fragment {
 
         lyBtnProd = (LinearLayout)vEditarProd.findViewById(R.id.lyBtnProductos);
 
-        dboh = new ProductosDBOpenHelper(getContext());
+        dboh = new DBOpenHelper(getContext());
 
         bundle = this.getArguments();
 

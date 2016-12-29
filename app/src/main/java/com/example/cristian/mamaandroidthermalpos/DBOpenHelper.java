@@ -12,7 +12,7 @@ import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
  * Created by jessi on 26/12/2016.
  */
 
-public class ProductosDBOpenHelper extends SQLiteOpenHelper {
+public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final int VERSION_DB = 2;
     public static final String NOMBRE_DB ="productos.db";
@@ -21,7 +21,7 @@ public class ProductosDBOpenHelper extends SQLiteOpenHelper {
 
 
 
-    public ProductosDBOpenHelper(Context context) {
+    public DBOpenHelper(Context context) {
         super(context, NOMBRE_DB, null, VERSION_DB);
     }
 

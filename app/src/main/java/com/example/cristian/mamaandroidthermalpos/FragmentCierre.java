@@ -29,7 +29,7 @@ public class FragmentCierre extends android.support.v4.app.Fragment {
 
         producto = (TextView) view.findViewById(R.id.producto);
 
-        ProductosDBOpenHelper dpoh = new ProductosDBOpenHelper(getContext());
+        DBOpenHelper dpoh = new DBOpenHelper(getContext());
 
         Cursor c = dpoh.obtenerProducto1("1");
         if(c.moveToFirst() == false){
