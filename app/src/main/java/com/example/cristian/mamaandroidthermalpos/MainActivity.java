@@ -2,6 +2,10 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Switch swtBluetooth;
     Fragment oldFragment = null;
     private boolean dobleBackSalir = false;
+
+    private BluetoothAdapter bAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +98,46 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     }
                 }
         );
+        bAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if(bAdapter != null){
+            //Es un dispositivo BT
+            if(bAdapter.isEnabled()) {
+                Toast.makeText(this, "BT ACTIVO", Toast.LENGTH_SHORT).show();
+
+
+
+            }else{
+                Toast.makeText(this, "BT APAGADO", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+            //Carece de BT
+        }
+
     }
+
+
+    private final BroadcastReceiver bReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "SE HA CAMBIADO EL ESTADO DEL BT", Toast.LENGTH_SHORT).show();
+            final String accion = intent.getAction();
+            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(accion)){
+                //SE HA PRODUCIDO UNA ACCION EN EL BT - TODAVIA DESCONOCIDA
+                final int estado = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,BluetoothAdapter.ERROR);
+                switch(estado){
+                    case BluetoothAdapter.STATE_ON:
+                        //SE HA ACTIVADO EL BLUETOOTH
+                        swtBluetooth.setChecked(true);
+                        break;
+                    case BluetoothAdapter.STATE_OFF:
+                        swtBluetooth.setChecked(false);
+                        break;
+                }
+            }
+        }
+    };
 
     //Inflador del menú
     @Override
@@ -102,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         swtBluetooth = (Switch) this.findViewById(R.id.switchBluetooth);
         if(swtBluetooth != null){
             swtBluetooth.setOnCheckedChangeListener(this);
+
+            IntentFilter filtro = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            getApplicationContext().registerReceiver(bReceiver,filtro);
         }
         return true;
     }
@@ -133,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             getSupportFragmentManager().popBackStackImmediate();
         }
     }
+
+
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
