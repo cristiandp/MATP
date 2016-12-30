@@ -1,10 +1,6 @@
-package com.example.cristian.mamaandroidthermalpos.bluetoothUtils;
+package com.example.cristian.mamaandroidthermalpos.Bluetooth;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map;
-
-import android.graphics.Bitmap;
 
 public class ESCUtil {
 

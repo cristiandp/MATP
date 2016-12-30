@@ -13,10 +13,10 @@ import java.util.UUID;
  */
 
 public class BluetoothUtil {
+    private static final UUID PRINTER_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    public static BluetoothSocket getSocket(BluetoothDevice dispositivo) throws IOException{
 
-    public static BluetoothSocket getSocket(BluetoothDevice dispositivo, UUID laUUID) throws IOException{
-
-        BluetoothSocket socket = dispositivo.createRfcommSocketToServiceRecord(laUUID);
+        BluetoothSocket socket = dispositivo.createRfcommSocketToServiceRecord(PRINTER_UUID);
         socket.connect();
         return socket;
     }
@@ -25,7 +25,7 @@ public class BluetoothUtil {
 
         OutputStream out = socket.getOutputStream();
         out.write(bytes, 0, bytes.length);
-        out.close();
+//        out.close();
 
         Log.d("Enviar datos", "Confirmado");
     }

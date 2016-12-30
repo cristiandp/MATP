@@ -2,8 +2,10 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +32,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.cristian.mamaandroidthermalpos.Bluetooth.BluetoothUtil;
 import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Fragment oldFragment = null;
     private boolean dobleBackSalir = false;
 
-    private BluetoothAdapter bAdapter;
+    private static BluetoothAdapter bAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,30 +105,37 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 }
         );
 
-        bAdapter = BluetoothAdapter.getDefaultAdapter();
+//        bAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if(bAdapter != null){
-            //Es un dispositivo BT
-            if(bAdapter.isEnabled()) {
-                Toast.makeText(this, "BT ACTIVO", Toast.LENGTH_SHORT).show();
-
-
-
-            }else{
-                Toast.makeText(this, "BT APAGADO", Toast.LENGTH_SHORT).show();
-            }
-
-        }else{
-            //Carece de BT
-        }
+        new ConectarBluetooth(this);
+//        if(bAdapter != null){
+//            //Es un dispositivo BT
+//            if(bAdapter.isEnabled()) {
+//                Toast.makeText(this, "BT ACTIVO", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//            }else{
+//                Toast.makeText(this, "BT APAGADO", Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }else{
+//            //Carece de BT
+//            new AlertDialog.Builder(this).setTitle("No compatible")
+//                    .setMessage("Tu teléfono no soporta Bluetooth")
+//                    .setPositiveButton("Salir", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            System.exit(0);
+//                            finish();
+//                        }
+//                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+//        }
 
     }
-
 
     private final BroadcastReceiver bReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context, "SE HA CAMBIADO EL ESTADO DEL BT", Toast.LENGTH_SHORT).show();
             final String accion = intent.getAction();
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(accion)){
                 //SE HA PRODUCIDO UNA ACCION EN EL BT - TODAVIA DESCONOCIDA
@@ -131,11 +144,35 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     case BluetoothAdapter.STATE_ON:
                         //SE HA ACTIVADO EL BLUETOOTH
                         swtBluetooth.setChecked(true);
+                        ConectarBluetooth.bAdapter.startDiscovery();
                         break;
                     case BluetoothAdapter.STATE_OFF:
                         swtBluetooth.setChecked(false);
+                        if(ConectarBluetooth.bAdapter.isDiscovering())
+                            ConectarBluetooth.bAdapter.cancelDiscovery();
                         break;
                 }
+            }
+
+            final String accion2 = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(accion2)) {
+                //HAY QUE COMPROBAR SI ES LA IMPRESORA
+                final BluetoothDevice impresora = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                if (impresora.getAddress().equals("00:11:22:33:44:55")) {
+                    Toast.makeText(getApplicationContext(), "SE HA ENCONTRADO LA IMPRESORA", Toast.LENGTH_SHORT).show();
+                    ConectarBluetooth.bAdapter.cancelDiscovery();
+                    try {
+                        ConectarBluetooth.socket = BluetoothUtil.getSocket(impresora);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+            }
+
+            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(accion)) {
+                //CUANDO SE PARA LA BÚSQUEDA
             }
         }
     };
@@ -148,12 +185,21 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         swtBluetooth = (Switch) this.findViewById(R.id.switchBluetooth);
         if(swtBluetooth != null){
             swtBluetooth.setOnCheckedChangeListener(this);
-
             IntentFilter filtro = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+            filtro.addAction(BluetoothDevice.ACTION_FOUND);
             getApplicationContext().registerReceiver(bReceiver,filtro);
+            if(ConectarBluetooth.bAdapter.isEnabled()){
+                swtBluetooth.setChecked(true);
+                ConectarBluetooth.bAdapter.startDiscovery();
+            }else{
+                swtBluetooth.setChecked(false);
+            }
         }
         return true;
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -189,12 +235,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
         if(b){
-            Toast.makeText(getApplicationContext(),"El switch esta en ON",Toast.LENGTH_SHORT).show();
-            bAdapter.enable();
-
+            ConectarBluetooth.bAdapter.enable();
         }else{
-            Toast.makeText(getApplicationContext(),"El switch esta en OFF",Toast.LENGTH_SHORT).show();
-            bAdapter.disable();
+            ConectarBluetooth.bAdapter.disable();
         }
     }
 }
