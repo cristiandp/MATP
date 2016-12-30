@@ -41,9 +41,6 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             btnCantidadMenos = (Button) v.findViewById(R.id.btnCantidadMenos);
             btnBorrarProducto = (Button) v.findViewById(R.id.btnBorrarProducto);
         }
-
-
-
     }
 
 

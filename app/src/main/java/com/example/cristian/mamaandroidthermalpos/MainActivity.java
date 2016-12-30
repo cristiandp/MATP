@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                                 fragmentTransaction=true;
                                 break;
                             case R.id.menu_seccion_3:
-                                fragment = new FragmentCierre();
+                                fragment = new FragmentCaja();
                                 fragmentTransaction=true;
                                 break;
                             case R.id.menu_seccion_4:

@@ -1,5 +1,6 @@
 package com.example.cristian.mamaandroidthermalpos;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cristian.mamaandroidthermalpos.tabCajas.CajaPageAdapter;
+
 import static android.support.design.widget.TabLayout.*;
 
 /**
@@ -21,75 +24,18 @@ import static android.support.design.widget.TabLayout.*;
 public class FragmentCaja extends android.support.v4.app.Fragment{
 
     View view;
-    TextView producto;
-    TabLayout tabs;
-    ViewPager pager;
-
-    RelativeLayout rlCaja;
-
-    Fragment fragmento;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_caja, container, false);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setAdapter(new CajaPageAdapter(getFragmentManager(),getContext()));
 
-     /*   producto = (TextView) view.findViewById(R.id.producto);
-
-        DBOpenHelper dpoh = new DBOpenHelper(getContext());
-
-        Cursor c = dpoh.obtenerProducto1("1");
-        if(c.moveToFirst() == false){
-            Toast.makeText(view.getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
-        }else{
-            String nombreProducto = c.getString(c.getColumnIndex(dbContract.NombreColumnas.NOMBRE_PRODUCTO));
-            producto.setText(nombreProducto);
-        }*/
-
-
-
-        tabs = (TabLayout)view.findViewById(R.id.tabs);
-       // pager = (ViewPager)view.findViewById(R.id.view_pager);
-
-        rlCaja = (RelativeLayout)view.findViewById(R.id.rlCaja);
-
-        pager = (ViewPager)view.findViewById(R.id.pager);
-
-
-
-        tabs.addOnTabSelectedListener(new OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(Tab tab) {
-               Toast.makeText(view.getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
-
-             if(tab.getText().equals("Abrir caja")){
-
-                    Toast.makeText(view.getContext(), "Has seleccionado el tab Abrir caja", Toast.LENGTH_SHORT).show();
-                 //   view = inflater.inflate(R.layout.fragment_caja, container, false);
-
-
-
-
-                }else if(tab.getText().equals("Cerrar caja")){
-                    Toast.makeText(view.getContext(), "Has seleccionado el tab Cerrar caja", Toast.LENGTH_SHORT).show();
-                  //  view = inflater.inflate(R.layout.fragment_cerrar_caja, container, false);
-             }
-
-
-
-            }
-
-            @Override
-            public void onTabUnselected(Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(Tab tab) {
-
-            }
-        });
+        tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }
