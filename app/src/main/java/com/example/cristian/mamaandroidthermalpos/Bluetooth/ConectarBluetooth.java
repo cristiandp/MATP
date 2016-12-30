@@ -48,9 +48,7 @@ public class ConectarBluetooth{
 
       //  Log.d("Context recibido", contextRecibido.toString());
 
-
     }
-
 
     private final BroadcastReceiver bRecibidor = new BroadcastReceiver() {
         @Override

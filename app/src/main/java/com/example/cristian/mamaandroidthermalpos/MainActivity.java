@@ -1,35 +1,24 @@
 package com.example.cristian.mamaandroidthermalpos;
 
-import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -71,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                                 fragmentTransaction=true;
                                 break;
                             case R.id.menu_seccion_3:
-                                fragment = new FragmentCierre();
+                                fragment = new FragmentCaja();
                                 fragmentTransaction=true;
                                 break;
                             case R.id.menu_seccion_4:
@@ -181,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             getSupportFragmentManager().popBackStackImmediate();
         }
     }
-
 
 
     @Override
