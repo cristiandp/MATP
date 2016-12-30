@@ -15,13 +15,11 @@ import com.example.cristian.mamaandroidthermalpos.FragmentCierreCaja;
 public class CajaPageAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 2;
-    private String[] tabTitles = new String[]{"Abrir Caja","Cerrar caja"};
+    private String[] tabTitles = new String[]{"ABRIR CAJA","CERRAR CAJA"};
     Fragment fragment;
-    Context context;
 
-    public CajaPageAdapter(FragmentManager fm,Context context) {
+    public CajaPageAdapter(FragmentManager fm) {
         super(fm);
-        this.context = context;
     }
 
     @Override

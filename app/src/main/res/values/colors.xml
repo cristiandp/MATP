@@ -6,7 +6,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backgroundInicial">#c5cae9</color>
     <color name="blanco">#FFFFFF</color>
-    <color name="colorBlancoTrans">#CCFFFFFF</color>
+    <color name="blancoTrans">#CCFFFFFF</color>
     <color name="negro">#000000</color>
     <style name="negrita">bold</style>
 </resources>

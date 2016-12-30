@@ -32,7 +32,7 @@ public class FragmentCaja extends android.support.v4.app.Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_caja, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new CajaPageAdapter(getFragmentManager(),getContext()));
+        viewPager.setAdapter(new CajaPageAdapter(getFragmentManager()));
 
         tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
