@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     }
                 }
         );
+
         bAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if(bAdapter != null){
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             if(!drawerLayout.isDrawerOpen(GravityCompat.START)){
                 drawerLayout.openDrawer(GravityCompat.START);
             }
-            //Reset de la variable en caso de que no le den
+            //Reset de la variable en caso de que no se le
             new Handler().postDelayed(new Runnable() {
 
                 @Override

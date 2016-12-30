@@ -29,27 +29,6 @@ public class ConectarBluetooth{
     //Registramos el bloadcastReciver que instanciamos previamente
     //para detectar los distintos eventos que queremso recibir
 
-    public void registrarEventosBluetooth(Context context){
-        Log.d("aviso", "Estas en el método");
-        IntentFilter filtro = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-        filtro.addAction(BluetoothDevice.ACTION_FOUND);
-
-//        filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-
-        if(bAdaptador != null){
-            //Es un dispositivo BT
-            if(bAdaptador.isEnabled()) {
-                Toast.makeText(context, "BT ACTIVO", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            //Carece de BT
-        }
-        context.registerReceiver(bRecibidor, filtro);
-
-      //  Log.d("Context recibido", contextRecibido.toString());
-
-
-    }
 
 
     private final BroadcastReceiver bRecibidor = new BroadcastReceiver() {
@@ -79,6 +58,31 @@ public class ConectarBluetooth{
             }
         }
     };
+
+    public void registrarEventosBluetooth(Context context){
+        Log.d("aviso", "Estas en el método");
+        IntentFilter filtro = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        filtro.addAction(BluetoothDevice.ACTION_FOUND);
+
+//        filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+
+        if(bAdaptador != null){
+            //Es un dispositivo BT
+            if(bAdaptador.isEnabled()) {
+                Toast.makeText(context, "BT ACTIVO", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            //Carece de BT
+        }
+        context.registerReceiver(bRecibidor, filtro);
+
+      //  Log.d("Context recibido", contextRecibido.toString());
+
+
+    }
+
+
+
 
     public void empezarBusqueda(Context contextRecibido){
         //contextRecibido = this.contextRecibido;
