@@ -69,7 +69,7 @@ public class ConectarBluetooth{
 
 
     public byte[] getHeader(){
-        byte[] header;
+        byte[] header = new byte[5];
 
 
 
