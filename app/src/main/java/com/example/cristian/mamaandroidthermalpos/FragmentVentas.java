@@ -2,9 +2,6 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cristian.mamaandroidthermalpos.Bluetooth.BluetoothUtil;
 import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
 import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 import com.example.cristian.mamaandroidthermalpos.Productos.ProductoAdapter;
@@ -130,7 +125,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                 //Cobrar y general el ticket
                 byte[] prueba = "HOLA MUNDO*******************\n".getBytes();
                 try {
-                    BluetoothUtil.enviarDatos(prueba,ConectarBluetooth.socket);
+                    ConectarBluetooth.enviarDatos(prueba,ConectarBluetooth.socket);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
