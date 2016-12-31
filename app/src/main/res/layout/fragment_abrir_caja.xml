@@ -4,8 +4,33 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Soy abrir caja"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtAbrirCaja" />
+        android:id="@+id/txtFechayHora"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBilletesyMonedas"
+            android:background="@drawable/billetesymonedasicon"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:text="Saldo inicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imgBilletesyMonedas"
+            android:paddingLeft="4dp"
+            android:id="@+id/txtAbrirCaja" />
+
+        <EditText
+            android:layout_toRightOf="@+id/txtAbrirCaja"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 </LinearLayout>
