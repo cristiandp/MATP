@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 
 public class ESCUtil {
 
+	public ESCUtil(){
+
+    }
+
 	public static final byte ESC = 27;// Escape
 	public static final byte FS = 28;// Text delimiter
 	public static final byte GS = 29;// Group separator  
@@ -289,59 +293,4 @@ public class ESCUtil {
 		}
 		return result;
 	}
-
-	// --------------------
-	public static byte[] generateMockData() {
-		try {
-			byte[] next2Line = ESCUtil.nextLine(2);
-			byte[] title = "The menu（launch）**wanda plaza".getBytes("gb2312");
-
-			byte[] boldOn = ESCUtil.boldOn();
-			byte[] fontSize2Big = ESCUtil.fontSizeSetBig(3);
-			byte[] center = ESCUtil.alignCenter();
-			byte[] Focus = "Web 507".getBytes("gb2312");
-			byte[] boldOff = ESCUtil.boldOff();
-			byte[] fontSize2Small = ESCUtil.fontSizeSetSmall(3);
-
-			byte[] left = ESCUtil.alignLeft();
-			byte[] orderSerinum = "Order No.11234".getBytes("gb2312");
-			boldOn = ESCUtil.boldOn();
-			byte[] fontSize1Big = ESCUtil.fontSizeSetBig(2);
-			byte[] FocusOrderContent = "Big hamburger(single)".getBytes("gb2312");
-			boldOff = ESCUtil.boldOff();
-			byte[] fontSize1Small = ESCUtil.fontSizeSetSmall(2);
-
-			next2Line = ESCUtil.nextLine(2);
-
-			byte[] priceInfo = "Receivable:$22  Discount：$2.5 ".getBytes("gb2312");
-			byte[] nextLine = ESCUtil.nextLine(1);
-
-			byte[] priceShouldPay = "Actual collection:$19.5".getBytes("gb2312");
-			nextLine = ESCUtil.nextLine(1);
-
-			byte[] takeTime = "Pickup time:2015-02-13 12:51:59".getBytes("gb2312");
-			nextLine = ESCUtil.nextLine(1);
-			byte[] setOrderTime = "Order time：2015-02-13 12:35:15".getBytes("gb2312");
-
-			byte[] tips_1 = "Follow twitter\"**\"order for $1 discount".getBytes("gb2312");
-			nextLine = ESCUtil.nextLine(1);
-			byte[] tips_2 = "Commentary reward 50 cents".getBytes("gb2312");
-			byte[] next4Line = ESCUtil.nextLine(4);
-
-			byte[] breakPartial = ESCUtil.feedPaperCutPartial();
-
-			byte[][] cmdBytes = { title, nextLine, center, boldOn, fontSize2Big, Focus, boldOff, fontSize2Small,
-					next2Line, left, orderSerinum, nextLine, center, boldOn, fontSize1Big, FocusOrderContent, boldOff,
-					fontSize1Small, nextLine, left, next2Line, priceInfo, nextLine, priceShouldPay, next2Line, takeTime,
-					nextLine, setOrderTime, next2Line, center, tips_1, nextLine, center, tips_2, next4Line,
-					breakPartial };
-
-			return ESCUtil.byteMerger(cmdBytes);
-
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 }

@@ -15,7 +15,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 
 /**
@@ -26,6 +30,7 @@ public class ConectarBluetooth{
 
     public static BluetoothAdapter bAdapter;
     public static BluetoothSocket socket;
+    private static final UUID PRINTER_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     Set<BluetoothDevice> bonded;
 
     public ConectarBluetooth(Context context){
@@ -43,6 +48,33 @@ public class ConectarBluetooth{
                        })
                     .setIcon(android.R.drawable.ic_dialog_alert).show();
            }
+    }
+
+
+    public static BluetoothSocket getSocket(BluetoothDevice dispositivo) throws IOException {
+
+        BluetoothSocket socket = dispositivo.createRfcommSocketToServiceRecord(PRINTER_UUID);
+        socket.connect();
+        return socket;
+    }
+
+    public static void enviarDatos(byte[] bytes, BluetoothSocket socket) throws IOException{
+
+        OutputStream out = socket.getOutputStream();
+        out.write(bytes, 0, bytes.length);
+//        out.close();
+
+        Log.d("Enviar datos", "Confirmado");
+    }
+
+
+    public byte[] getHeader(){
+        byte[] header;
+
+
+
+
+        return header;
     }
 
 
