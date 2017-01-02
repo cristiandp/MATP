@@ -1,8 +1,14 @@
 package com.example.cristian.mamaandroidthermalpos.Bluetooth;
 
-import java.io.UnsupportedEncodingException;
+import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+import java.lang.Byte;
 public class ESCUtil {
+    static Calendar c = Calendar.getInstance();
 
 	public ESCUtil(){
 
@@ -293,4 +299,87 @@ public class ESCUtil {
 		}
 		return result;
 	}
+
+    public static byte[] generarTicket(List<Producto> productos){
+		int tMax = 32;
+		byte[] res = getHeader();
+		byte[] m;
+		String separacion = "";
+		try {
+			m = " EUR".getBytes("Cp858");
+			for (int i = 0; i < productos.size();i++){
+				byte[] nombre= productos.get(i).getNombre_producto().getBytes("Cp858");
+				String precioTotal = String.format(Locale.getDefault(),"%.2f", productos.get(i).getPrecio() * productos.get(i).getCantidad());
+				int caracteres = nombre.length+precioTotal.length()+"EUR".length();
+
+				for(int j = 0; j < tMax-caracteres-1;j++){
+					separacion +=".";
+				}
+
+				byte[] precio= precioTotal.getBytes("Cp858") ;
+				byte[] bSeparacion = separacion.getBytes();
+				byte[][] unProducto = new byte[][]{res,nombre,bSeparacion,precio,m,alignLeft(),nextLine(1)};
+				res = byteMerger(unProducto);
+				separacion = "";
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		res = byteMerger(res,nextLine(3));
+		return res;
+	}
+
+	public static byte[] generarTicket2(List<Producto> productos){
+		StringBuffer strBuff = new StringBuffer();
+
+		for (int i = 0 ; i < productos.size();i++){
+			strBuff.append(productos.get(i).getNombre_producto());
+			strBuff.append(String.format(Locale.getDefault(),"%.2f",productos.get(i).getPrecio()));
+			strBuff.append("\n");
+		}
+		strBuff.append("\n\n\n");
+	    return  byteMerger(getHeader(),strBuff.toString().getBytes());
+	}
+
+    public static byte[] getHeader(){
+        byte[] separadorAsteriscos = "********************************".getBytes();
+        byte[] logoText = "MamaAndroid".getBytes();
+
+        String sec = Integer.toString(c.get(Calendar.SECOND));
+        String min = Integer.toString(c.get(Calendar.MINUTE));
+        String hor = Integer.toString(c.get(Calendar.HOUR));
+
+        String dia = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+        String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+        String ano = Integer.toString(c.get(Calendar.YEAR));
+
+        byte[] fecha = (hor+":"+min+"  "+dia+"/"+mes+"/"+ano).getBytes();
+
+        byte[][] merge = new byte[][]{
+				separadorAsteriscos,nextLine(2),
+                alignCenter(),boldOn(),logoText,boldOff(),nextLine(1),
+                fecha,nextLine(2),
+                separadorAsteriscos,separadorAsteriscos,nextLine(3),
+                alignLeft()};
+
+        return byteMerger(merge);
+    }
+
+	public static byte[] getFooter(){
+		byte[] height = new byte[]{-100};
+		byte[] gs = new byte[]{GS};
+		byte[] esc = new byte[]{ESC};
+		byte[] h = new byte[]{104};
+		byte[] k = new byte[]{107};
+		byte[] enc = new byte[]{4};
+		byte[] numero ="454654586".getBytes();
+		byte[] nul = new byte[]{0};
+
+		byte[][] toMerg = new byte[][]{gs,h,height,esc,k,enc,numero,nul};
+
+
+		return byteMerger(toMerg);
+	}
+
+
 }

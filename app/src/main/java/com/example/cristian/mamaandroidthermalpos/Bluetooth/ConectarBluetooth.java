@@ -68,14 +68,7 @@ public class ConectarBluetooth{
     }
 
 
-    public byte[] getHeader(){
-        byte[] header = new byte[5];
 
-
-
-
-        return header;
-    }
 
 
 
