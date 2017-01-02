@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
+import com.example.cristian.mamaandroidthermalpos.Bluetooth.ESCUtil;
 import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 import com.example.cristian.mamaandroidthermalpos.Productos.ProductoAdapter;
 
@@ -125,7 +126,10 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                 //Cobrar y general el ticket
                 byte[] prueba = "HOLA MUNDO*******************\n".getBytes();
                 try {
-                    ConectarBluetooth.enviarDatos(prueba,ConectarBluetooth.socket);
+//                    ConectarBluetooth.enviarDatos(prueba,ConectarBluetooth.socket);
+//                    byte[] ticket = ESCUtil.generarTicket(items);
+                    byte[] ticket =ESCUtil.generarTicket(items);
+                    ConectarBluetooth.enviarDatos(ticket,ConectarBluetooth.socket);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
