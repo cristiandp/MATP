@@ -37,14 +37,14 @@ public class FragmentAbrirCaja extends Fragment {
 
         txtFechayHora.setText(currentDateTimeString);
 
-        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
+//        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
 
-        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cerrarCaja();
-            }
-        });
+//        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                cerrarCaja();
+//            }
+//        });
 
 
 

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Switch swtBluetooth;
     Fragment oldFragment = null;
     private boolean dobleBackSalir = false;
+    public static boolean sCaja = false;
 
     private static BluetoothAdapter bAdapter;
 

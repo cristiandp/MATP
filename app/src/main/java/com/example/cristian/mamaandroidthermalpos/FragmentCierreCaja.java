@@ -130,14 +130,14 @@ public class FragmentCierreCaja extends Fragment{
             }
         });
 
-        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
+//        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
 
-        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cerrarCaja();
-            }
-        });
+//        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                cerrarCaja();
+//            }
+//        });
 
 
         return view;
