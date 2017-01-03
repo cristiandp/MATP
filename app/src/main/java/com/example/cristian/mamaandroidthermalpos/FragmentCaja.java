@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,19 @@ public class FragmentCaja extends android.support.v4.app.Fragment{
         tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+       /* TabHost tabHost = getTabHost();
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+
+            public void onTabChanged(String str) {
+
+            }
+        });*/
+
+
         return view;
+
+
     }
 
 

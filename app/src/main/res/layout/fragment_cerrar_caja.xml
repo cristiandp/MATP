@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,19 +13,9 @@
         android:layout_marginBottom="30dp"/>
 
 
- <!--   <EditText
-        android:background="@drawable/roundedborders"
-        android:ems="10"
-        android:hint="Saldo final"
-        android:numeric="decimal"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:layout_weight="0.06"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />-->
-
     <EditText
         android:layout_width="match_parent"
+        android:layout_below="@+id/txtFechayHora"
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -37,6 +27,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/edTxtsaldoFinal"
         android:text="Billetes y monedas"
         android:id="@+id/btnByM"
         />
@@ -46,6 +37,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btnByM"
         android:visibility="gone"
         android:id="@+id/lyByM"
         android:layout_weight="1">
@@ -288,11 +280,21 @@
         </LinearLayout>
 
     </LinearLayout>
-    <Button
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDiarioCierre"
+            android:layout_below="@+id/lyByM"
+            android:text="Diario de cierre"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar caja"/>
-
+        android:layout_below="@+id/btnDiarioCierre"
+        android:id="@+id/lyDiarioCierre"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -316,21 +318,49 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
                 android:text="&gt;"/>
-
-
-
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:id="@+id/scrollDiarioCierre"
             android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Jornada: 10:00 \n Total tickets: 32 \n Saldo inicial: 1200€ \n Saldo final: 2500 \n Descuadre: 0 \n Comentarios: \n\n**10:00** Caja abierta con 1200€ \n 5x5 4x10  6x20 7x50 3x100 1x500 \n\n**14:00** Caja cerrada con 2500 \n 5x5 4x10 6x20 27x50 4x100 1x200 1x500"/>
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jornada: 10:00 \n Total tickets: 32 \n Saldo inicial: 1200€ \n Saldo final: 2500€ \n Descuadre: 0 \n Comentarios: \n\n**10:00** Caja abierta con 1200€ \n 5x5 4x10  6x20 7x50 3x100 1x500 \n\n**14:00** Caja cerrada con 2500 \n 5x5 4x10 6x20 27x50 4x100 1x200 1x500"/>
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jornada: 17:00 \n Total tickets: 32 \n Saldo inicial: 1200€ \n Saldo final: 2500€ \n Descuadre: 0 \n Comentarios: \n\n**10:00** Caja abierta con 1200€ \n 5x5 4x10  6x20 7x50 3x100 1x500 \n\n**14:00** Caja cerrada con 2500 \n 5x5 4x10 6x20 27x50 4x100 1x200 1x500"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatBtnCierre"
+        android:src="@drawable/lock"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+
+    <!--<Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:text="Cerrar caja"/>-->
+
+</RelativeLayout>

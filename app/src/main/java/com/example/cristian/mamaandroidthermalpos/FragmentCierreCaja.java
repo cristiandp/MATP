@@ -1,7 +1,11 @@
 package com.example.cristian.mamaandroidthermalpos;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +35,19 @@ public class FragmentCierreCaja extends Fragment{
     TextView txtFechayHora;
     LinearLayout lyByM;
     Button btnByM;
+    Button btnDiarioCierre;
 
     EditText edTextSaldoFinal;
+    LinearLayout lyDiarioCierre;
+    FloatingActionButton floatBtnCierre;
+
 
     ArrayList<EditText> saldo = new ArrayList<>();
 
     boolean activado = false;
 
     Float total = 0f;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -68,7 +78,8 @@ public class FragmentCierreCaja extends Fragment{
         btnByM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activarByM();
+                edTextSaldoFinal.setText("");
+                activarBotones();
             }
         });
         saldo.add((EditText) view.findViewById(R.id.edTxtCant001));
@@ -108,18 +119,34 @@ public class FragmentCierreCaja extends Fragment{
             });
         }
 
+        btnDiarioCierre = (Button)view.findViewById(R.id.btnDiarioCierre);
+        lyDiarioCierre = (LinearLayout)view.findViewById(R.id.lyDiarioCierre);
+
+        btnDiarioCierre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activarBotones();
+
+            }
+        });
+
+        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
+
+        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cerrarCaja();
+            }
+        });
+
 
         return view;
 
     }
 
+    public void activarBotones(){
 
-    public void activarByM() {
-
-        if (!activado) {
-
-            edTextSaldoFinal.setText("");
-
+        if(!activado){
             lyByM.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams parametros = lyByM.getLayoutParams();
             parametros.height = parametros.WRAP_CONTENT;
@@ -127,11 +154,14 @@ public class FragmentCierreCaja extends Fragment{
             lyByM.setLayoutParams(parametros);
             activado = true;
 
-        } else if (activado) {
+            lyDiarioCierre.setVisibility(View.GONE);
+        }else if(activado){
             lyByM.setVisibility(View.GONE);
             activado = false;
-        }
 
+            lyDiarioCierre.setVisibility(View.VISIBLE);
+
+        }
     }
 
     public String calcularSaldoFinal() {
@@ -196,6 +226,37 @@ public class FragmentCierreCaja extends Fragment{
         }
 
         return String.format(Locale.getDefault(),"%.2f",total / 100);
+    }
+
+    public void cerrarCaja(){
+
+        AlertDialog.Builder confirmarCerrarCaja = new AlertDialog.Builder(getContext());
+
+        confirmarCerrarCaja.setTitle("Cerrar caja");
+
+        confirmarCerrarCaja.setMessage("¿Deseas cerrar la caja?");
+
+        confirmarCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Snackbar.make(getView(), "Se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        confirmarCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        confirmarCerrarCaja.show();
+
     }
 }
 
