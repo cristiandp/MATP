@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ public class FragmentAbrirCaja extends Fragment {
     View view;
     TextView txtFechayHora;
     EditText edTxtSaldoInicial;
-
+    boolean saldoDirecto = false;
     ArrayList<EditText> saldo = new ArrayList<>();
 
 
@@ -63,45 +64,49 @@ public class FragmentAbrirCaja extends Fragment {
         edTxtSaldoInicial = (EditText) view.findViewById(R.id.edTxtSaldoInicial);
 
         for(int i = 0 ; i < saldo.size();i++){
+            saldo.get(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    saldoDirecto=false;
+
+                    return false;
+                }
+            });
             saldo.get(i).addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
                 @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
                 @Override
                 public void afterTextChanged(Editable editable) {
+                    if(!saldoDirecto)
                     edTxtSaldoInicial.setText(calcularSaldoFinal());
                 }
             });
         }
 
+        edTxtSaldoInicial.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                saldoDirecto=true;
+                limpiarCampos();
+                return false;
+            }
+        });
+
 
         edTxtSaldoInicial.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                for(int i = 0;i < saldo.size(); i++){
-
-                    saldo.get(i).setText("");
-                }
-
-            }
+                if(saldoDirecto)
+                    calcularSaldoFinal();}
         });
 
 
@@ -110,9 +115,17 @@ public class FragmentAbrirCaja extends Fragment {
 
     }
 
+
+    public void limpiarCampos(){
+        for (int i = 0; i < saldo.size();i++){
+            saldo.get(i).setText("");
+        }
+    }
+
     public String calcularSaldoFinal() {
         MainActivity.saldo_inicial = 0f;
-
+        if(saldoDirecto)
+            limpiarCampos();
         for (int i = 0; i < saldo.size();i++){
             String mon;
             if(!saldo.get(i).getText().toString().equals("")){
