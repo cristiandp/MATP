@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +33,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
 
     View view;
     TextView txtPrecio;
-    Button btnCobrar;
+    public static Button btnCobrar;
     List<Producto> items = new ArrayList<Producto>();
 
     AlertDialog.Builder confirmarAbrirCerrarCaja;
@@ -115,9 +114,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         filtro.addAction(BluetoothDevice.ACTION_FOUND);
         filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 
-        if (ConectarBluetooth.socket == null) {
-            btnCobrar.setEnabled(false);
-        }else if(MainActivity.saldo_inicial == 0f){
+        if(MainActivity.saldo_inicial == 0f){
             btnCobrar.setEnabled(false);
             confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
             confirmarAbrirCerrarCaja.setTitle("Caja cerrada");
@@ -128,6 +125,8 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                     fragmentCaja = new FragmentCaja();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragmentCaja).addToBackStack(null)
                             .commit();
+                    MainActivity.cambiarActivo(2,true);
+                    ((MainActivity) getActivity()).cambiarTitulo("Estadísticas del día");
                 }
             });
             confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     DrawerLayout drawerLayout;
-    NavigationView navView;
+    static NavigationView navView;
     Switch swtBluetooth;
     Fragment oldFragment = null;
     private boolean dobleBackSalir = false;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         toolbar.setTitle("Bienvenido/a");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        Button btnVentasCobrar;
 
 
         drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -111,10 +113,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     case BluetoothAdapter.STATE_ON:
                         //SE HA ACTIVADO EL BLUETOOTH
                         swtBluetooth.setChecked(true);
+                        if(FragmentVentas.btnCobrar != null)
+                            FragmentVentas.btnCobrar.setEnabled(true);
                         ConectarBluetooth.bAdapter.startDiscovery();
                         break;
                     case BluetoothAdapter.STATE_OFF:
                         swtBluetooth.setChecked(false);
+                        if(FragmentVentas.btnCobrar != null)
+                            FragmentVentas.btnCobrar.setEnabled(false);
                         if(ConectarBluetooth.bAdapter.isDiscovering())
                             ConectarBluetooth.bAdapter.cancelDiscovery();
                         break;
@@ -164,6 +170,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         return true;
     }
 
+    public static void cambiarActivo(int menu, boolean estado){
+        navView.getMenu().getItem(menu).setChecked(estado);
+    }
+
+    public void cambiarTitulo(String titulo){
+        getSupportActionBar().setTitle(titulo);
+    }
 
 
     @Override
