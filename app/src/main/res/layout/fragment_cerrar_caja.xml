@@ -19,6 +19,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:imeOptions="actionDone"
         android:background="@drawable/roundedborders"
         android:paddingLeft="10dp"
         android:id="@+id/edTxtsaldoFinal"
@@ -26,6 +27,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"
+        android:drawableLeft="@drawable/billetesymonedas_icon"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:layout_below="@id/edTxtsaldoFinal"
@@ -53,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant001"
                 android:layout_weight="1"/>
 
@@ -66,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant002"
                 android:layout_weight="1"/>
 
@@ -79,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant005"
                 android:layout_weight="1" />
 
@@ -100,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant010"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -113,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant020"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -126,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant050"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -145,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant1"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -158,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant2"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -171,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant5"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1" />
 
             <TextView
@@ -190,6 +201,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant10"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1"
                 />
 
@@ -205,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant20"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1"
                 />
 
@@ -220,6 +233,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edTxtCant50"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:layout_weight="1"
                 />
 
@@ -241,6 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant100" />
 
             <TextView
@@ -255,6 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant200" />
 
             <TextView
@@ -269,6 +285,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:id="@+id/edTxtCant500"
                 />
 
@@ -288,6 +305,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnDiarioCierre"
         android:layout_below="@+id/lyByM"
+        android:drawableLeft="@drawable/diario_cierre_icon"
         android:text="Diario de cierre"/>
 
     <LinearLayout
@@ -314,7 +332,9 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtFechaActual"/>
+                android:imeOptions="actionDone"
+                android:focusable="false"
+                android:id="@+id/edtxtFechaActual"/>
 
             <Button
                 android:layout_width="wrap_content"
