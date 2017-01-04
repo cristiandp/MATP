@@ -27,6 +27,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"
+        android:drawableLeft="@drawable/billetesymonedas_icon"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:layout_below="@id/edTxtsaldoFinal"
@@ -304,6 +305,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnDiarioCierre"
         android:layout_below="@+id/lyByM"
+        android:drawableLeft="@drawable/diario_cierre_icon"
         android:text="Diario de cierre"/>
 
     <LinearLayout
