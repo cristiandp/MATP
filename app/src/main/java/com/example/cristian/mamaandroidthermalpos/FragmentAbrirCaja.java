@@ -1,11 +1,7 @@
 package com.example.cristian.mamaandroidthermalpos;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -81,7 +77,7 @@ public class FragmentAbrirCaja extends Fragment {
                 @Override
                 public void afterTextChanged(Editable editable) {
                     if(!saldoDirecto)
-                    edTxtSaldoInicial.setText(calcularSaldoFinal());
+                    edTxtSaldoInicial.setText(calcularSaldoInicial());
                 }
             });
         }
@@ -106,7 +102,7 @@ public class FragmentAbrirCaja extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(saldoDirecto)
-                    calcularSaldoFinal();}
+                    calcularSaldoInicial();}
         });
 
 
@@ -122,68 +118,69 @@ public class FragmentAbrirCaja extends Fragment {
         }
     }
 
-    public String calcularSaldoFinal() {
-        MainActivity.saldo_inicial = 0f;
-        if(saldoDirecto)
+    public String calcularSaldoInicial() {
+        if(saldoDirecto){
             limpiarCampos();
-        for (int i = 0; i < saldo.size();i++){
-            String mon;
-            if(!saldo.get(i).getText().toString().equals("")){
-                mon = saldo.get(i).getText().toString();
-            }else{
-                mon = "0";
-            }
+            String mon = edTxtSaldoInicial.getText().toString();
+            MainActivity.saldo_inicial = Float.parseFloat(mon);
+        }else{
+               for (int i = 0; i < saldo.size();i++){
+                String mon;
+                if(!saldo.get(i).getText().toString().equals("")){
+                    mon = saldo.get(i).getText().toString();
+                }else{
+                    mon = "0";
+                }
 
-            switch (i){
-                case 0:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon);
-                    break;
-                case 1:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*2;
-                    break;
-                case 2:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*5;
-                    break;
-                case 3:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*10;
-                    break;
-                case 4:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*20;
-                    break;
-                case 5:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*50;
-                    break;
-                case 6:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*100;
-                    break;
-                case 7:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*200;
-                    break;
-                case 8:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*500;
-                    break;
-                case 9:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*1000;
-                    break;
-                case 10:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*2000;
-                    break;
-                case 11:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*5000;
-                    break;
-                case 12:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*10000;
-                    break;
-                case 13:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*20000;
-                    break;
-                case 14:
-                    MainActivity.saldo_inicial += Float.parseFloat(mon)*50000;
-                    break;
+                switch (i){
+                    case 0:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon);
+                        break;
+                    case 1:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*2;
+                        break;
+                    case 2:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*5;
+                        break;
+                    case 3:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*10;
+                        break;
+                    case 4:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*20;
+                        break;
+                    case 5:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*50;
+                        break;
+                    case 6:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*100;
+                        break;
+                    case 7:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*200;
+                        break;
+                    case 8:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*500;
+                        break;
+                    case 9:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*1000;
+                        break;
+                    case 10:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*2000;
+                        break;
+                    case 11:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*5000;
+                        break;
+                    case 12:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*10000;
+                        break;
+                    case 13:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*20000;
+                        break;
+                    case 14:
+                        MainActivity.saldo_inicial += Float.parseFloat(mon)*50000;
+                        break;
+                }
             }
-
         }
-
         return String.format(Locale.getDefault(),"%.2f",MainActivity.saldo_inicial / 100);
     }
 
