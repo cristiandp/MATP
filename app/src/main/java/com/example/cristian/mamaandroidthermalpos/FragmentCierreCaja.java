@@ -39,8 +39,6 @@ public class FragmentCierreCaja extends Fragment{
 
     EditText edTextSaldoFinal;
     LinearLayout lyDiarioCierre;
-    FloatingActionButton floatBtnCierre;
-
 
     ArrayList<EditText> saldo = new ArrayList<>();
 
@@ -130,15 +128,6 @@ public class FragmentCierreCaja extends Fragment{
             }
         });
 
-//        floatBtnCierre = (FloatingActionButton)view.findViewById(R.id.floatBtnCierre);
-
-//        floatBtnCierre.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                cerrarCaja();
-//            }
-//        });
-
 
         return view;
 
@@ -147,19 +136,13 @@ public class FragmentCierreCaja extends Fragment{
     public void activarBotones(){
 
         if(!activado){
-            lyByM.setVisibility(View.VISIBLE);
-            ViewGroup.LayoutParams parametros = lyByM.getLayoutParams();
-            parametros.height = parametros.WRAP_CONTENT;
-
-            lyByM.setLayoutParams(parametros);
-            activado = true;
-
-            lyDiarioCierre.setVisibility(View.GONE);
-        }else if(activado){
-            lyByM.setVisibility(View.GONE);
-            activado = false;
-
             lyDiarioCierre.setVisibility(View.VISIBLE);
+            lyByM.setVisibility(View.GONE);
+            activado = true;
+        }else if(activado){
+            lyDiarioCierre.setVisibility(View.GONE);
+            lyByM.setVisibility(View.VISIBLE);
+            activado = false;
 
         }
     }
@@ -228,36 +211,6 @@ public class FragmentCierreCaja extends Fragment{
         return String.format(Locale.getDefault(),"%.2f",total / 100);
     }
 
-    public void cerrarCaja(){
-
-        AlertDialog.Builder confirmarCerrarCaja = new AlertDialog.Builder(getContext());
-
-        confirmarCerrarCaja.setTitle("Cerrar caja");
-
-        confirmarCerrarCaja.setMessage("¿Deseas cerrar la caja?");
-
-        confirmarCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Snackbar.make(getView(), "Se ha cerrado la caja", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        confirmarCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        confirmarCerrarCaja.show();
-
-    }
 }
 
 

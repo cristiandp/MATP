@@ -1,16 +1,19 @@
 package com.example.cristian.mamaandroidthermalpos;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -44,31 +47,82 @@ public class FragmentCaja extends android.support.v4.app.Fragment implements Vie
         fabCaja = (FloatingActionButton) view.findViewById(R.id.fabCaja);
         fabCaja.setOnClickListener(this);
 
-       /* TabHost tabHost = getTabHost();
-
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-
-            public void onTabChanged(String str) {
-
-            }
-        });*/
-
-
         return view;
 
 
     }
 
     @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.fabCaja){
-            Toast.makeText(getContext(),"SE HA DADO CLICK AL BOTON",Toast.LENGTH_SHORT).show();
-            if(!MainActivity.sCaja){
+    public void onClick(final View view) {
 
-                MainActivity.sCaja = true;
+        AlertDialog.Builder confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
+        if(view.getId() == R.id.fabCaja){
+            if(!MainActivity.sCaja){
+                confirmarAbrirCerrarCaja.setTitle("Abrir caja");
+
+                confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja?");
+
+                confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Snackbar.make(getView(), "Se ha abierto la caja", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+
+                        fabCaja.setImageResource(R.drawable.lock);
+
+                        MainActivity.sCaja = true;
+                    }
+                });
+
+                confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        Snackbar.make(getView(), "No se ha abierto la caja", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+
+                confirmarAbrirCerrarCaja.show();
+
+
             }
             else{
                 //Caja cerrada
+
+                confirmarAbrirCerrarCaja.setTitle("Cerrar caja");
+                confirmarAbrirCerrarCaja.setMessage("¿Deseas cerrar la caja?");
+
+                confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Snackbar.make(getView(), "Se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+
+                        fabCaja.setImageResource(R.drawable.lock_open);
+
+                        MainActivity.sCaja = false;
+                    }
+                });
+
+                confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+
+                confirmarAbrirCerrarCaja.show();
+
+
 
 
             }
