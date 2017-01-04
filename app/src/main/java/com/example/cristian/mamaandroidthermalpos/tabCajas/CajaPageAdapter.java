@@ -17,7 +17,6 @@ public class CajaPageAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private String[] tabTitles = new String[]{"ABRIR CAJA","CERRAR CAJA"};
     Fragment fragment;
-    boolean cajaAbierta;
 
     public CajaPageAdapter(FragmentManager fm) {
         super(fm);

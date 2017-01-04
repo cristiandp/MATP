@@ -17,15 +17,12 @@
             android:background="@drawable/roundedborders"
             android:layout_below="@id/txtFechayHora"
             android:id="@+id/edTxtSaldoInicial"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:hint="Saldo inicial"
-            android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
-            android:layout_weight="0.06"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-
+            android:layout_height="40dp" />
 
 
 

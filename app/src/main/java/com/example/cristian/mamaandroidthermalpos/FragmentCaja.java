@@ -58,67 +58,131 @@ public class FragmentCaja extends android.support.v4.app.Fragment implements Vie
         AlertDialog.Builder confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
         if(view.getId() == R.id.fabCaja){
             if(!MainActivity.sCaja){
-                confirmarAbrirCerrarCaja.setTitle("Abrir caja");
 
-                confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja?");
+                if(MainActivity.saldo_inicial == 0f){
+                    confirmarAbrirCerrarCaja.setTitle("Error al abrir caja");
 
-                confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                    confirmarAbrirCerrarCaja.setMessage("Introduce un saldo inicial superior a 0,00");
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Snackbar.make(getView(), "Se ha abierto la caja", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                    confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            viewPager.setCurrentItem(0);
 
 
-                        fabCaja.setImageResource(R.drawable.lock);
+                        }
+                    });
 
-                        MainActivity.sCaja = true;
-                    }
-                });
 
-                confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                }else {
+                    confirmarAbrirCerrarCaja.setTitle("Abrir caja");
 
-                        Snackbar.make(getView(), "No se ha abierto la caja", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
+                    confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja con " + MainActivity.saldo_inicial/100 + " €?");
+
+                    confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Snackbar.make(getView(), "Se ha abierto la caja con " + MainActivity.saldo_inicial/100, Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+
+
+                            fabCaja.setImageResource(R.drawable.lock);
+
+                            viewPager.setCurrentItem(0);
+
+                            MainActivity.sCaja = true;
+                        }
+                    });
+
+                    confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            Snackbar.make(getView(), "No se ha abierto la caja", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+
+                            viewPager.setCurrentItem(0);
+                        }
+                    });
+                }
 
                 confirmarAbrirCerrarCaja.show();
 
 
             }
-            else{
+            else if(MainActivity.sCaja){
                 //Caja cerrada
 
-                confirmarAbrirCerrarCaja.setTitle("Cerrar caja");
-                confirmarAbrirCerrarCaja.setMessage("¿Deseas cerrar la caja?");
+                if(MainActivity.saldo_final == 0f){
+                    confirmarAbrirCerrarCaja.setTitle("Saldo 0");
+                    confirmarAbrirCerrarCaja.setMessage("El saldo final es 0, ¿Desea continuar?");
 
-                confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                    confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Snackbar.make(getView(), "Se ha cerrado la caja", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Snackbar.make(getView(), "Se ha cerrado la caja con 0 de saldo", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
 
 
-                        fabCaja.setImageResource(R.drawable.lock_open);
+                            fabCaja.setImageResource(R.drawable.lock_open);
 
-                        MainActivity.sCaja = false;
-                    }
-                });
+                            viewPager.setCurrentItem(1);
 
-                confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+                            MainActivity.sCaja = false;
+                        }
+                    });
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
 
-                        Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+
+                            viewPager.setCurrentItem(1);
+                        }
+                    });
+
+
+                }else {
+
+                    confirmarAbrirCerrarCaja.setTitle("Cerrar caja");
+                    confirmarAbrirCerrarCaja.setMessage("¿Deseas cerrar la caja con " + MainActivity.saldo_final/100 + " € saldo?");
+
+                    confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Snackbar.make(getView(), "Se ha cerrado la caja con " + MainActivity.saldo_final/100, Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+
+                            viewPager.setCurrentItem(1);
+
+
+                            fabCaja.setImageResource(R.drawable.lock_open);
+
+                            MainActivity.sCaja = false;
+                        }
+                    });
+
+                    confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            Snackbar.make(getView(), "No se ha cerrado la caja", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                    });
+
+                }
 
                 confirmarAbrirCerrarCaja.show();
 

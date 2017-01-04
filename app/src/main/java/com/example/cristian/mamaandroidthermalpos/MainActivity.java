@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Fragment oldFragment = null;
     private boolean dobleBackSalir = false;
     public static boolean sCaja = false;
+    public static float saldo_inicial = 0f;
+    public static float saldo_final = 0f;
 
     private static BluetoothAdapter bAdapter;
 

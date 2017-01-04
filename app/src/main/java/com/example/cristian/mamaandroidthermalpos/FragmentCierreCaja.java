@@ -1,11 +1,14 @@
 package com.example.cristian.mamaandroidthermalpos;
 
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -34,8 +37,8 @@ public class FragmentCierreCaja extends Fragment{
     EditText txtFechaActual;
     TextView txtFechayHora;
     LinearLayout lyByM;
-    Button btnByM;
-    Button btnDiarioCierre;
+    AppCompatButton btnByM;
+    AppCompatButton btnDiarioCierre;
 
     EditText edTextSaldoFinal;
     LinearLayout lyDiarioCierre;
@@ -44,7 +47,10 @@ public class FragmentCierreCaja extends Fragment{
 
     boolean activado = false;
 
-    Float total = 0f;
+    ColorStateList cslMagenta;
+    ColorStateList cslGris;
+
+  //  Float total = 0f;
 
 
     @Override
@@ -70,7 +76,7 @@ public class FragmentCierreCaja extends Fragment{
 
         lyByM = (LinearLayout) view.findViewById(R.id.lyByM);
 
-        btnByM = (Button) view.findViewById(R.id.btnByM);
+        btnByM = (AppCompatButton) view.findViewById(R.id.btnByM);
 
 
         btnByM.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +123,7 @@ public class FragmentCierreCaja extends Fragment{
             });
         }
 
-        btnDiarioCierre = (Button)view.findViewById(R.id.btnDiarioCierre);
+        btnDiarioCierre = (AppCompatButton) view.findViewById(R.id.btnDiarioCierre);
         lyDiarioCierre = (LinearLayout)view.findViewById(R.id.lyDiarioCierre);
 
         btnDiarioCierre.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +135,12 @@ public class FragmentCierreCaja extends Fragment{
         });
 
 
+        cslMagenta = new ColorStateList(new int[][]{new int[0]}, new int[]{0xffff4081});
+        cslGris = new ColorStateList(new int[][]{new int[0]}, new int[]{0xffd6d7d7});
+        btnByM.setSupportBackgroundTintList(cslMagenta);
+
+
+
         return view;
 
     }
@@ -138,17 +150,30 @@ public class FragmentCierreCaja extends Fragment{
         if(!activado){
             lyDiarioCierre.setVisibility(View.VISIBLE);
             lyByM.setVisibility(View.GONE);
+
+            btnDiarioCierre.setSupportBackgroundTintList(cslMagenta);
+            btnDiarioCierre.setTextColor(Color.WHITE);
+            btnByM.setSupportBackgroundTintList(cslGris);
+            btnByM.setTextColor(Color.BLACK);
+
             activado = true;
+
         }else if(activado){
             lyDiarioCierre.setVisibility(View.GONE);
             lyByM.setVisibility(View.VISIBLE);
+
+            btnDiarioCierre.setSupportBackgroundTintList(cslGris);
+            btnDiarioCierre.setTextColor(Color.BLACK);
+            btnByM.setSupportBackgroundTintList(cslMagenta);
+            btnByM.setTextColor(Color.WHITE);
+
             activado = false;
 
         }
     }
 
     public String calcularSaldoFinal() {
-        total = 0f;
+        MainActivity.saldo_final = 0f;
 
         for (int i = 0; i < saldo.size();i++){
             String mon;
@@ -160,55 +185,55 @@ public class FragmentCierreCaja extends Fragment{
 
             switch (i){
                 case 0:
-                    total += Float.parseFloat(mon);
+                    MainActivity.saldo_final += Float.parseFloat(mon);
                     break;
                 case 1:
-                    total += Float.parseFloat(mon)*2;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*2;
                     break;
                 case 2:
-                    total += Float.parseFloat(mon)*5;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*5;
                     break;
                 case 3:
-                    total += Float.parseFloat(mon)*10;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*10;
                     break;
                 case 4:
-                    total += Float.parseFloat(mon)*20;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*20;
                     break;
                 case 5:
-                    total += Float.parseFloat(mon)*50;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*50;
                     break;
                 case 6:
-                    total += Float.parseFloat(mon)*100;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*100;
                     break;
                 case 7:
-                    total += Float.parseFloat(mon)*200;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*200;
                     break;
                 case 8:
-                    total += Float.parseFloat(mon)*500;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*500;
                     break;
                 case 9:
-                    total += Float.parseFloat(mon)*1000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*1000;
                     break;
                 case 10:
-                    total += Float.parseFloat(mon)*2000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*2000;
                     break;
                 case 11:
-                    total += Float.parseFloat(mon)*5000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*5000;
                     break;
                 case 12:
-                    total += Float.parseFloat(mon)*10000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*10000;
                     break;
                 case 13:
-                    total += Float.parseFloat(mon)*20000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*20000;
                     break;
                 case 14:
-                    total += Float.parseFloat(mon)*50000;
+                    MainActivity.saldo_final += Float.parseFloat(mon)*50000;
                     break;
             }
 
         }
 
-        return String.format(Locale.getDefault(),"%.2f",total / 100);
+        return String.format(Locale.getDefault(),"%.2f",MainActivity.saldo_final / 100);
     }
 
 }
