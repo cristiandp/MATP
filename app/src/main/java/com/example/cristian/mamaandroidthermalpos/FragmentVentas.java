@@ -2,8 +2,12 @@ package com.example.cristian.mamaandroidthermalpos;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +36,10 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     TextView txtPrecio;
     Button btnCobrar;
     List<Producto> items = new ArrayList<Producto>();
+
+    AlertDialog.Builder confirmarAbrirCerrarCaja;
+
+    Fragment fragmentCaja;
 
     public FragmentVentas(){
 
@@ -108,6 +116,41 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         IntentFilter filtro = new IntentFilter();
         filtro.addAction(BluetoothDevice.ACTION_FOUND);
         filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+
+        if(MainActivity.saldo_inicial == 0f){
+
+            btnCobrar.setEnabled(false);
+
+           confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
+
+            confirmarAbrirCerrarCaja.setTitle("Caja cerrada");
+            confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja?");
+
+            confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    fragmentCaja = new FragmentCaja();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragmentCaja).addToBackStack(null)
+                            .commit();
+                }
+            });
+
+            confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                }
+            });
+
+            confirmarAbrirCerrarCaja.show();
+
+        }else{
+            btnCobrar.setEnabled(true);
+        }
         return view;
     }
 
