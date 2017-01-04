@@ -1,5 +1,6 @@
 package com.example.cristian.mamaandroidthermalpos;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -104,7 +107,6 @@ public class FragmentAbrirCaja extends Fragment {
                 if(saldoDirecto)
                     calcularSaldoInicial();}
         });
-
 
 
         return view;
