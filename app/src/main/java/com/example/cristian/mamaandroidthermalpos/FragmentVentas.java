@@ -65,7 +65,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_ventas,container,false);
+        view = inflater.inflate(R.layout.fragment_ventas, container, false);
 //
 //        boton1 = (Button)  view.findViewById(R.id.btnBarras);
         txtPrecio = (TextView) view.findViewById(R.id.txtPrecio);
@@ -75,26 +75,25 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
 
 
         //DUMMY DATA
-        items.add(new Producto("producto 1",40.20f,1));
-        items.add(new Producto("producto 2",12.55f,5));
-        items.add(new Producto("producto 3",34.10f,4));
-        items.add(new Producto("producto 4",59.95f,6));
+        items.add(new Producto("producto 1", 40.20f, 1));
+        items.add(new Producto("producto 2", 12.55f, 5));
+        items.add(new Producto("producto 3", 34.10f, 4));
+        items.add(new Producto("producto 4", 59.95f, 6));
 
-        items.add(new Producto("producto 1",40.20f,1));
-        items.add(new Producto("producto 2",12.55f,5));
-        items.add(new Producto("producto 3",34.10f,4));
-        items.add(new Producto("producto 4",59.95f,6));
+        items.add(new Producto("producto 1", 40.20f, 1));
+        items.add(new Producto("producto 2", 12.55f, 5));
+        items.add(new Producto("producto 3", 34.10f, 4));
+        items.add(new Producto("producto 4", 59.95f, 6));
 
-        items.add(new Producto("producto 1",40.20f,1));
-        items.add(new Producto("producto 2",12.55f,5));
-        items.add(new Producto("producto 3",34.10f,4));
-        items.add(new Producto("producto 4",59.95f,6));
+        items.add(new Producto("producto 1", 40.20f, 1));
+        items.add(new Producto("producto 2", 12.55f, 5));
+        items.add(new Producto("producto 3", 34.10f, 4));
+        items.add(new Producto("producto 4", 59.95f, 6));
 
-        items.add(new Producto("producto 1",40.20f,1));
-        items.add(new Producto("producto 2",12.55f,5));
-        items.add(new Producto("producto 3",34.10f,4));
-        items.add(new Producto("producto 4",59.95f,6));
-
+        items.add(new Producto("producto 1", 40.20f, 1));
+        items.add(new Producto("producto 2", 12.55f, 5));
+        items.add(new Producto("producto 3", 34.10f, 4));
+        items.add(new Producto("producto 4", 59.95f, 6));
 
 
 // Obtener el Recycler
@@ -106,9 +105,8 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         recycler.setLayoutManager(lManager);
 
 // Crear un nuevo adaptador
-        RecyclerView.Adapter adapter = new ProductoAdapter(items,this);
+        RecyclerView.Adapter adapter = new ProductoAdapter(items, this);
         recycler.setAdapter(adapter);
-
 
 
         actualizarPrecio();
@@ -117,37 +115,27 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         filtro.addAction(BluetoothDevice.ACTION_FOUND);
         filtro.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 
-        if(MainActivity.saldo_inicial == 0f){
-
+        if (ConectarBluetooth.socket == null) {
             btnCobrar.setEnabled(false);
-
-           confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
-
+        }else if(MainActivity.saldo_inicial == 0f){
+            btnCobrar.setEnabled(false);
+            confirmarAbrirCerrarCaja = new AlertDialog.Builder(getContext());
             confirmarAbrirCerrarCaja.setTitle("Caja cerrada");
             confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja?");
-
             confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
                     fragmentCaja = new FragmentCaja();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragmentCaja).addToBackStack(null)
                             .commit();
                 }
             });
-
             confirmarAbrirCerrarCaja.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
-
                 }
             });
-
             confirmarAbrirCerrarCaja.show();
-
         }else{
             btnCobrar.setEnabled(true);
         }

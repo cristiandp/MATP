@@ -80,13 +80,13 @@ public class FragmentCaja extends android.support.v4.app.Fragment implements Vie
                 }else {
                     confirmarAbrirCerrarCaja.setTitle("Abrir caja");
 
-                    confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja con " + MainActivity.saldo_inicial/100 + " €?");
+                    confirmarAbrirCerrarCaja.setMessage("¿Deseas abrir la caja con " + MainActivity.saldo_inicial + " €?");
 
                     confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Snackbar.make(getView(), "Se ha abierto la caja con " + MainActivity.saldo_inicial/100, Snackbar.LENGTH_LONG)
+                            Snackbar.make(getView(), "Se ha abierto la caja con " + MainActivity.saldo_inicial, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
 
 
