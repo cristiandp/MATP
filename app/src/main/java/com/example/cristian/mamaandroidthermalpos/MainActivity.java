@@ -23,8 +23,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.cristian.mamaandroidthermalpos.Bluetooth.ConectarBluetooth;
+import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     public static boolean sCaja = false;
     public static float saldo_inicial = 0f;
     public static float saldo_final = 0f;
-
+    public static List<Producto> items = new ArrayList<Producto>();
     private static BluetoothAdapter bAdapter;
 
     @Override
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         Button btnVentasCobrar;
 
+        //TODO: Borrar esta lina, es solo para develop
+        this.deleteDatabase("mamaandroid.db");
 
         drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
         navView = (NavigationView) this.findViewById(R.id.navview);
@@ -100,6 +105,28 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         //Comienzo de la conexión
         new ConectarBluetooth(this);
 
+        /**
+        //DUMMY DATA
+        MainActivity.items.add(new Producto("producto 1", 40.20f, 1));
+        MainActivity.items.add(new Producto("producto 2", 12.55f, 5));
+        MainActivity.items.add(new Producto("producto 3", 34.10f, 4));
+        MainActivity.items.add(new Producto("producto 4", 59.95f, 6));
+
+        MainActivity.items.add(new Producto("producto 1", 40.20f, 1));
+        MainActivity.items.add(new Producto("producto 2", 12.55f, 5));
+        MainActivity.items.add(new Producto("producto 3", 34.10f, 4));
+        MainActivity.items.add(new Producto("producto 4", 59.95f, 6));
+
+        MainActivity.items.add(new Producto("producto 1", 40.20f, 1));
+        MainActivity.items.add(new Producto("producto 2", 12.55f, 5));
+        MainActivity.items.add(new Producto("producto 3", 34.10f, 4));
+        MainActivity.items.add(new Producto("producto 4", 59.95f, 6));
+
+        MainActivity.items.add(new Producto("producto 1", 40.20f, 1));
+        MainActivity.items.add(new Producto("producto 2", 12.55f, 5));
+        MainActivity.items.add(new Producto("producto 3", 34.10f, 4));
+        MainActivity.items.add(new Producto("producto 4", 59.95f, 6));
+         */
     }
 
     private final BroadcastReceiver bReceiver = new BroadcastReceiver() {

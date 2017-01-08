@@ -34,11 +34,12 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     View view;
     TextView txtPrecio;
     public static Button btnCobrar;
-    List<Producto> items = new ArrayList<Producto>();
+    public Button btnBuscarProducto;
+
 
     AlertDialog.Builder confirmarAbrirCerrarCaja;
-
-    Fragment fragmentCaja;
+    Bundle bundle = new Bundle();
+    Fragment fragment;
 
     public FragmentVentas(){
 
@@ -48,9 +49,9 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     public void actualizarPrecio(){
         float precio = 0 ;
         String calculo;
-        for (int i = 0 ; i < items.size();i++){
+        for (int i = 0 ; i < MainActivity.items.size();i++){
 
-            Producto p =(Producto) items.get(i);
+            Producto p =(Producto) MainActivity.items.get(i);
             precio += p.getPrecio()*p.getCantidad();
         }
         calculo = String.format(Locale.getDefault(),"%.2f", precio)+"€" ;
@@ -70,29 +71,10 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         txtPrecio = (TextView) view.findViewById(R.id.txtPrecio);
 //        boton1.setOnClickListener(this);
         btnCobrar = (Button) view.findViewById(R.id.btnCobrar);
+        btnBuscarProducto = (Button) view.findViewById(R.id.btnBuscarProducto);
+
+        btnBuscarProducto.setOnClickListener(this);
         btnCobrar.setOnClickListener(this);
-
-
-        //DUMMY DATA
-        items.add(new Producto("producto 1", 40.20f, 1));
-        items.add(new Producto("producto 2", 12.55f, 5));
-        items.add(new Producto("producto 3", 34.10f, 4));
-        items.add(new Producto("producto 4", 59.95f, 6));
-
-        items.add(new Producto("producto 1", 40.20f, 1));
-        items.add(new Producto("producto 2", 12.55f, 5));
-        items.add(new Producto("producto 3", 34.10f, 4));
-        items.add(new Producto("producto 4", 59.95f, 6));
-
-        items.add(new Producto("producto 1", 40.20f, 1));
-        items.add(new Producto("producto 2", 12.55f, 5));
-        items.add(new Producto("producto 3", 34.10f, 4));
-        items.add(new Producto("producto 4", 59.95f, 6));
-
-        items.add(new Producto("producto 1", 40.20f, 1));
-        items.add(new Producto("producto 2", 12.55f, 5));
-        items.add(new Producto("producto 3", 34.10f, 4));
-        items.add(new Producto("producto 4", 59.95f, 6));
 
 
 // Obtener el Recycler
@@ -104,7 +86,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
         recycler.setLayoutManager(lManager);
 
 // Crear un nuevo adaptador
-        RecyclerView.Adapter adapter = new ProductoAdapter(items, this);
+        RecyclerView.Adapter adapter = new ProductoAdapter(MainActivity.items, this);
         recycler.setAdapter(adapter);
 
 
@@ -122,8 +104,8 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
             confirmarAbrirCerrarCaja.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    fragmentCaja = new FragmentCaja();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragmentCaja).addToBackStack(null)
+                    fragment = new FragmentCaja();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
                             .commit();
                     MainActivity.cambiarActivo(2,true);
                     ((MainActivity) getActivity()).cambiarTitulo("Estadísticas del día");
@@ -148,8 +130,15 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                 //Escaneo por código de barras
                 break;
 
-            case R.id.btnBuscarVentas:
+            case R.id.btnBuscarProducto:
                 //Buscar por producto -> Requiere salto de fragment
+                fragment = new FragmentEditarBorrarProd();
+                bundle.putString("accionBtn","buscar");
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null)
+                        .commit();
+                MainActivity.cambiarActivo(2,true);
+                ((MainActivity) getActivity()).cambiarTitulo("Buscar Producto");
                 break;
 
             case R.id.btnCobrar:
@@ -158,7 +147,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
                 try {
 //                    ConectarBluetooth.enviarDatos(prueba,ConectarBluetooth.socket);
 //                    byte[] ticket = ESCUtil.generarTicket(items);
-                    byte[] ticket =ESCUtil.generarTicket(items);
+                    byte[] ticket =ESCUtil.generarTicket(MainActivity.items);
                     ConectarBluetooth.enviarDatos(ticket,ConectarBluetooth.socket);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -172,7 +161,7 @@ public class FragmentVentas extends android.support.v4.app.Fragment implements V
     @Override
     public void VentasInterface(int position, int cantidad) {
         if (cantidad > 0) {
-            items.get(position).setCantidad(cantidad);
+            MainActivity.items.get(position).setCantidad(cantidad);
         }
         actualizarPrecio();
     }

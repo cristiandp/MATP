@@ -14,8 +14,8 @@ import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-    public static final int VERSION_DB = 2;
-    public static final String NOMBRE_DB ="productos.db";
+    public static final int VERSION_DB = 1;
+    public static final String NOMBRE_DB ="mamaandroid.db";
 
 
 
@@ -29,10 +29,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         /**
          * Aqui van las tablas de datos cuando se crea la aplicación
-         * Se deberia mover las actualizaciones de prueba a esta parte cuando se acabe el desarrollo
          * TODO Mover actualizaciones de prueba a esta parte al final
          */
 
+        /**
+         * Tabla productos (_id,categoria,stock,nombre_producto,precio,referencia)
+         */
         db.execSQL("CREATE TABLE " + dbContract.NombreColumnas.TABLA_PRODUCTOS + " ("
         +NombreColumnas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         +NombreColumnas.CATEGORIA + " TEXT NOT NULL,"
@@ -41,11 +43,58 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         +NombreColumnas.PRECIO + " FLOAT NOT NULL,"
         +NombreColumnas.REFERENCIA + " INT NOT NULL)");
 
-        datosPrueba(db);
+        //DUMMY DATA PARA PRODUCTOS
+        productoDePrueba(db, new Producto("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"));
+        productoDePrueba(db, new Producto("Tablets", 20, "Bq Edison 3", 212.30f, "1111111111"));
+        productoDePrueba(db, new Producto("Smartphones", 70, "Samsung Galaxy S7", 389.50f, "2222222222"));
+        productoDePrueba(db, new Producto("Fundas", 50, "Funda iPhone 7", 5.3f,"3333333333"));
+
+        /**
+         * Añadida tabla tickets(id,ref,hora)
+         * Añadida tabla ventas(id,ref,nombre,cantidad)
+         * Añadida tabla tickets_ventas(id_ticket,id_venta)
+         * Añadida tabla productos_ventas(id_producto,id_venta)
+         *
+         */
+
+        /**
+         * columna hora se rellena con la hora de la insercción automáticamente
+         */
+        String sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS+"(" +
+                NombreColumnas.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                NombreColumnas.REFERENCIA + " TEXT NOT NULL," +
+                NombreColumnas.HORA + " DATETIME DEFAULT CURRENT_TIMESTAMP" +
+                ")";
+        db.execSQL(sql);
+        /**
+         * la cantidad de venta es 1 por default
+         */
+        sql = "CREATE TABLE "+NombreColumnas.TABLA_VENTAS+"("+
+                NombreColumnas.ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                NombreColumnas.NOMBRE_PRODUCTO + "TEXT NOT NULL," +
+                NombreColumnas.CANTIDAD + "INTEGER DEFAULT 1" +
+                ")";
+        db.execSQL(sql);
+
+        //Tablas forágenas
+        sql = "CREATE TABLE "+NombreColumnas.TABLA_PRODUCTOS_VENTAS+"(" +
+                NombreColumnas.ID_PRODUCTO +" INTEGER," +
+                NombreColumnas.ID_VENTA + " INTEGER," +
+                "PRIMARY KEY("+NombreColumnas.ID_PRODUCTO+","+NombreColumnas.ID_VENTA+")," +
+                "FOREIGN KEY("+NombreColumnas.ID_PRODUCTO+") REFERENCES "+NombreColumnas.TABLA_PRODUCTOS+"("+NombreColumnas.ID+")," +
+                "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
+                ")";
+        db.execSQL(sql);
+        sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS_VENTAS+"(" +
+                NombreColumnas.ID_TICKET +" INTEGER," +
+                NombreColumnas.ID_VENTA + " INTEGER," +
+                "PRIMARY KEY("+NombreColumnas.ID_TICKET+","+NombreColumnas.ID_VENTA+")," +
+                "FOREIGN KEY("+NombreColumnas.ID_TICKET+") REFERENCES "+NombreColumnas.TABLA_TICKETS+"("+NombreColumnas.ID+")," +
+                "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
+                ")";
+        db.execSQL(sql);
 
 
-
-        //Cursor c = db.query(NombreColumnas.TABLA_PRODUCTOS, columnas, seleccion, seleccionArgumentos,null, null,null);
 
 
     }
@@ -60,11 +109,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     private void datosPrueba(SQLiteDatabase db){
 
-        //Log.d("INSERCCION",Long.toString(productoDePrueba(db, new Producto("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"))));
-        productoDePrueba(db, new Producto("Smartphones", 50, "Xiaomi Redmi Note 3 Pro", 170, "0000000000"));
-        productoDePrueba(db, new Producto("Tablets", 20, "Bq Edison 3", 212.30f, "1111111111"));
-        productoDePrueba(db, new Producto("Smartphones", 70, "Samsung Galaxy S7", 389.50f, "2222222222"));
-        productoDePrueba(db, new Producto("Fundas", 50, "Funda iPhone 7", 5.3f,"3333333333"));
+
 
     }
 //    public long insertarProductos(Producto productos){
@@ -91,7 +136,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public Cursor busquedaProductos(String clausula){
-        String columnas[] = new String[]{NombreColumnas.NOMBRE_PRODUCTO};
+        String columnas[] = new String[]{NombreColumnas.CATEGORIA,NombreColumnas.STOCK,NombreColumnas.NOMBRE_PRODUCTO,NombreColumnas.PRECIO,NombreColumnas.REFERENCIA};
         String seleccion = NombreColumnas.CATEGORIA + " LIKE ? OR " +
                 NombreColumnas.NOMBRE_PRODUCTO + " LIKE ? OR " +
                 NombreColumnas.PRECIO + " LIKE ? OR " +
@@ -122,50 +167,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int versionDB, int nuevaVersionDB) {
         //ESTA ZONA ES BASTANTE DELICADA. REGISTRAR SIEMPRE LOS CAMBIOS HECHOS.
         //TODO Acabar actualización base de datos
-        /**
-         * Añadida tabla tickets(id,ref,hora)
-         * Añadida tabla ventas(id,ref,nombre,cantidad)
-         * Añadida tabla tickets_ventas(id_ticket,id_venta)
-         * Añadida tabla productos_ventas(id_producto,id_venta)
-         *
-         */
         if(versionDB == 1 && nuevaVersionDB >= 2){
-            /**
-             * columna hora se rellena con la hora de la insercción automáticamente
-             */
-            String sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS+"(" +
-                    NombreColumnas.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    NombreColumnas.REFERENCIA + " TEXT NOT NULL," +
-                    NombreColumnas.HORA + " DATETIME DEFAULT CURRENT_TIMESTAMP" +
-                    ")";
-            db.execSQL(sql);
-            /**
-             * la cantidad de venta es 1 por default
-             */
-            sql = "CREATE TABLE "+NombreColumnas.TABLA_VENTAS+"("+
-                    NombreColumnas.ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    NombreColumnas.NOMBRE_PRODUCTO + "TEXT NOT NULL," +
-                    NombreColumnas.CANTIDAD + "INTEGER DEFAULT 1" +
-                    ")";
-            db.execSQL(sql);
 
-            //Tablas forágenas
-            sql = "CREATE TABLE "+NombreColumnas.TABLA_PRODUCTOS_VENTAS+"(" +
-                    NombreColumnas.ID_PRODUCTO +" INTEGER," +
-                    NombreColumnas.ID_VENTA + " INTEGER," +
-                    "PRIMARY KEY("+NombreColumnas.ID_PRODUCTO+","+NombreColumnas.ID_VENTA+")," +
-                    "FOREIGN KEY("+NombreColumnas.ID_PRODUCTO+") REFERENCES "+NombreColumnas.TABLA_PRODUCTOS+"("+NombreColumnas.ID+")," +
-                    "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
-                    ")";
-            db.execSQL(sql);
-            sql = "CREATE TABLE "+NombreColumnas.TABLA_TICKETS_VENTAS+"(" +
-                    NombreColumnas.ID_TICKET +" INTEGER," +
-                    NombreColumnas.ID_VENTA + " INTEGER," +
-                    "PRIMARY KEY("+NombreColumnas.ID_TICKET+","+NombreColumnas.ID_VENTA+")," +
-                    "FOREIGN KEY("+NombreColumnas.ID_TICKET+") REFERENCES "+NombreColumnas.TABLA_TICKETS+"("+NombreColumnas.ID+")," +
-                    "FOREIGN KEY("+NombreColumnas.ID_VENTA+") REFERENCES "+NombreColumnas.TABLA_VENTAS+"("+NombreColumnas.ID+")" +
-                    ")";
-            db.execSQL(sql);
+        }
+
+        if(versionDB >= 1 && nuevaVersionDB >= 3){
+
         }
 
     }

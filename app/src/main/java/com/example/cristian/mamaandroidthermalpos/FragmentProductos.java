@@ -56,13 +56,7 @@ public class FragmentProductos extends Fragment implements View.OnClickListener{
                         .commit();
 
                 bundle = new Bundle();
-
-
-
                 String txtInfo = getText(R.string.txtInfo1).toString();
-
-
-
                 bundle.putString("info", txtInfo);
                 fragment.setArguments(bundle);
 

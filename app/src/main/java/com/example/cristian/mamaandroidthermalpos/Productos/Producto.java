@@ -34,6 +34,15 @@ public class Producto {
         this.precio = precio;
         this.referencia = referencia;
     }
+    public Producto(String categoria, int stock, String nombre_producto, float precio, String referencia,int cantidad) {
+
+        this.categoria = categoria;
+        this.stock = stock;
+        this.nombre_producto = nombre_producto;
+        this.precio = precio;
+        this.referencia = referencia;
+        this.cantidad = cantidad;
+    }
 
     public int getId() {
         return id;

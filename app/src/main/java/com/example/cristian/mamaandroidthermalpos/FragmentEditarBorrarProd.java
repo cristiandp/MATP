@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.cristian.mamaandroidthermalpos.Productos.Producto;
+
 /**
  * Created by jessi on 27/12/2016.
  */
@@ -67,16 +69,20 @@ public class FragmentEditarBorrarProd extends Fragment {
                         do{
                             Button boton = new Button(getContext());
                             lyBtnProd.addView(boton);
-                            boton.setText(c.getString(0));
+                            boton.setText(c.getString(2));
+                            final Producto p = new Producto(c.getString(0),c.getInt(1),c.getString(2),c.getFloat(3),c.getString(4));
                             boton.setOnClickListener(new View.OnClickListener(){
                                 @Override
                                 public void onClick(View view) {
                                     Button b = (Button)view;
                                     String nombre_prod = b.getText().toString();
                                     String accion = bundle.getString("accionBtn");
-                                    if(accion == "editar") {
+                                    if(accion.equals("buscar")){
+                                        accionBuscar(p);
+                                    }
+                                    if(accion.equals("editar")) {
                                         enviarDatos(nombre_prod);
-                                    }else if (accion == "borrar"){
+                                    }else if (accion.equals ("borrar")){
                                         borrarProd();
                                     }
                                 }
@@ -93,6 +99,12 @@ public class FragmentEditarBorrarProd extends Fragment {
             }
         });
         return vEditarProd;
+    }
+
+
+    public void accionBuscar(Producto p){
+        MainActivity.items.add(new Producto(p.getCategoria(),p.getStock(),p.getNombre_producto(),p.getPrecio(),p.getReferencia(),1));
+        getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 
 
